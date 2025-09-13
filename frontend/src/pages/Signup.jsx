@@ -1,18 +1,47 @@
 import { MdRemoveRedEye } from "react-icons/md";
 import { IoMdEyeOff } from "react-icons/io";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import {  useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa6";
+import axios from "axios";
+import { authDataContext } from "../Context/AuthContext";
+
 const Signup = () => {
     const [show, setshow] = useState("false");
     const navigate = useNavigate();
+    const {serverUrl} = useContext(authDataContext);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    const handleSignUp = async (e) => {
+            e.preventDefault()
+
+        try {
+            const result = await axios.post(serverUrl + "/api/auth/signup", {
+                name,
+                email,
+                password
+            });
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
-        <div className="w-[100vw] h-[100vh] flex items-center justify-center">
+        <div className="w-[100vw] h-[100vh] relative flex items-center justify-center">
+            <div
+                className="w-[50px] h-[50px] text-white bg-red-600 cursor-pointer absolute top-[10%] left-[20px] rounded-[50%] flex items-center justify-center "
+                onClick={() => navigate("/")}
+            >
+                <FaArrowLeft className="w-[25px] h-[25px]" />
+            </div>
             <form
                 action="
             "
                 className="max-w-[900px] w-full md:w-[90%]  h-[600px] flex items-center justify-center flex-col md:items-start gap-[10px]"
+                onSubmit={handleSignUp}
             >
                 <h1 className="text-[45px] md:text-5xl text-black">
                     Welcome to Airbnb
@@ -24,6 +53,10 @@ const Signup = () => {
                     <input
                         type="text"
                         id="name"
+                        required
+                        onChange={(e) => setName(e.target.value)}
+
+                        value={name}
                         className="w-[90%] h-[40px] border  border-[#555656] rounded-lg px-[20px] text-[18px] "
                     />
                 </div>
@@ -35,6 +68,9 @@ const Signup = () => {
                     <input
                         type="text"
                         id="email"
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                         className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
                     />
                 </div>
@@ -46,6 +82,9 @@ const Signup = () => {
                     <input
                         type={show ? "text" : "password"}
                         id="password"
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
                         className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px] "
                     />
                     {!show && (
@@ -64,7 +103,15 @@ const Signup = () => {
                 <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] mt-[12px]">
                     Signup
                 </button>
-                <p className="text-[18px]">Already have an account ? <span className="text-[19px] cursor-pointer text-red-600" onClick={() => navigate("/login")}>Login </span></p>
+                <p className="text-[18px]">
+                    Already have an account ?{" "}
+                    <span
+                        className="text-[19px] cursor-pointer text-red-600"
+                        onClick={() => navigate("/login")}
+                    >
+                        Login{" "}
+                    </span>
+                </p>
             </form>
         </div>
     );
