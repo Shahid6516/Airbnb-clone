@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../assets/logo.png";
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -12,14 +12,27 @@ import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { IoBedOutline } from "react-icons/io5";
 import { FaTreeCity } from "react-icons/fa6";
 import { BiBuildingHouse } from "react-icons/bi";
+import {  useNavigate } from "react-router-dom";
+import {authDataContext} from "../Context/AuthContext"
+import axios from "axios"
 
 const Nav = () => {
   const [showpopup, setshowpopup] = useState(false);
   const navigate = useNavigate()
+const {serverUrl} = useContext(authDataContext)
+  const handleLogout = async()=>{
+    try {
+      const result = await axios.post(serverUrl + "/api/auth/logout", {withCredentials:true})
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <div>
-      <div className="w-[100vw] min-h-[70px]  border-b-[1px] border-[#dcdcdc] px-[40px] flex items-center justify-between ">
+      <div className="w-[100vw] min-h-[70px]  border-b-[1px] border-[#dcdcdc] px-[20px] flex items-center justify-between ">
         <div>
           <img src={logo} className="w-[130px]" />
         </div>
@@ -50,12 +63,12 @@ const Nav = () => {
           </button>
 
           {showpopup && (
-            <div className="pop-up w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[10%] border-[1px] border-[#aaa9a9] z-10 rounded-lg">
+            <div className="pop-up w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[2%] md:right-[10%] border-[1px] border-[#aaa9a9] z-10 rounded-lg">
               <ul className="w-[100%] h-[100%] text-[17px] flex items-start justify-around flex-col py-[10px]">
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={()=>navigate("/login")}>
                   Login
                 </li>
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={handleLogout}>
                   Logout
                 </li>
                 <div className="w-[100%] h-[1px] bg-[#c1c0c0]"></div>
