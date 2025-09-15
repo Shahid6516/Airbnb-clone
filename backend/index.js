@@ -4,6 +4,7 @@ import connectDb from "./config/db.js";
 import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import userRouter from "./routes/user.route.js";
 dotenv.config();
 const app = express();
 
@@ -14,11 +15,11 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-    
   })
 );
 //Routes
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => {
   connectDb();
