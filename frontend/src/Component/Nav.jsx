@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import logo from "../assets/logo.png";
+import { useContext, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
@@ -12,18 +11,31 @@ import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { IoBedOutline } from "react-icons/io5";
 import { FaTreeCity } from "react-icons/fa6";
 import { BiBuildingHouse } from "react-icons/bi";
-import {  useNavigate } from "react-router-dom";
-import {authDataContext} from "../Context/AuthContext"
+import { useNavigate } from "react-router-dom";
+import { authDataContext } from "../Context/AuthContext"
 import axios from "axios"
+import logo from "../assets/logo.png";
+import { userDataContext } from "../Context/UserContext";
+
 
 const Nav = () => {
   const [showpopup, setshowpopup] = useState(false);
   const navigate = useNavigate()
-const {serverUrl} = useContext(authDataContext)
-  const handleLogout = async()=>{
+  const { userData, setUserData } = useContext(userDataContext)
+
+  const { serverUrl } = useContext(authDataContext)
+  const handleLogout = async () => {
     try {
-      const result = await axios.post(serverUrl + "/api/auth/logout", {withCredentials:true})
+      const result = await axios.post(serverUrl + "/api/auth/logout", { withCredentials: true })
+
+     
+      setUserData(null)
+      console.log("Fetched user:", result.data.user);
+      console.log("Result for data:", result.data);
+
+
       console.log(result)
+
     } catch (error) {
       console.log(error)
     }
@@ -51,21 +63,23 @@ const {serverUrl} = useContext(authDataContext)
             List your home
           </span>
           <button
-            className="px-[20px] py-[10px] flex justify-center gap-[5px] border-[2px] border-[#dcdcdc] rounded-full hover:shadow-lg"
+            className="px-[20px] py-[10px] flex justify-center items-center gap-[5px] border-[2px] border-[#dcdcdc] rounded-full hover:shadow-lg"
             onClick={() => setshowpopup((prev) => !prev)}
           >
             <span>
               <GiHamburgerMenu className="w-[20px] h-[20px]" />
             </span>
-            <span>
+
+            {userData == null && <span>
               <CgProfile className="w-[20px] h-[20px]" />
-            </span>
+            </span>}
+            {userData != null && <span className="w-[30px] h-[30px] bg-[#080808] text-white rounded-full flex items-center justify-center">{userData?.name?.slice(0, 1)}</span>}
           </button>
 
           {showpopup && (
             <div className="pop-up w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[2%] md:right-[10%] border-[1px] border-[#aaa9a9] z-10 rounded-lg">
               <ul className="w-[100%] h-[100%] text-[17px] flex items-start justify-around flex-col py-[10px]">
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={()=>navigate("/login")}>
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => navigate("/login")}>
                   Login
                 </li>
                 <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={handleLogout}>

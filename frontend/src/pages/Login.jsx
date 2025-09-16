@@ -5,12 +5,14 @@ import { useContext, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { authDataContext } from "../Context/AuthContext";
 import axios from "axios";
+import { userDataContext } from "../Context/UserContext";
 
 
 const Login = () => {
   const [show, setshow] = useState("false");
   const navigate = useNavigate();
   const { serverUrl } = useContext(authDataContext)
+  const { userData, setUserData } = useContext(userDataContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const handleLogin = async (e) => {
@@ -20,7 +22,9 @@ const Login = () => {
       const result = await axios.post(serverUrl + "/api/auth/login", {
         email,
         password
-      });
+      }, {withCredentials:true});
+      setUserData(result.data)
+      navigate("/")
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -52,7 +56,7 @@ const Login = () => {
             type="text"
             id="email"
             required
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
           />
@@ -65,8 +69,8 @@ const Login = () => {
           <input
             type={show ? "text" : "password"}
             id="password"
-             required
-            onChange={(e)=>setPassword(e.target.value)}
+            required
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
             className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px] "
           />

@@ -1,28 +1,33 @@
 import { MdRemoveRedEye } from "react-icons/md";
 import { IoMdEyeOff } from "react-icons/io";
-import {  useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 import axios from "axios";
 import { authDataContext } from "../Context/AuthContext";
+import { userDataContext } from "../Context/UserContext";
 
 const Signup = () => {
     const [show, setshow] = useState("false");
     const navigate = useNavigate();
-    const {serverUrl} = useContext(authDataContext);
+    const { serverUrl } = useContext(authDataContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const { userData, setUserData } = useContext(userDataContext)
+
     const [password, setPassword] = useState("");
 
     const handleSignUp = async (e) => {
-            e.preventDefault()
+        e.preventDefault()
 
         try {
             const result = await axios.post(serverUrl + "/api/auth/signup", {
                 name,
                 email,
                 password
-            });
+            }, { withCredentials: true });
+            setUserData(result.data)
+            navigate("/")
             console.log(result);
         } catch (error) {
             console.log(error);
