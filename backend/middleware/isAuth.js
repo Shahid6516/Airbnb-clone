@@ -3,13 +3,13 @@ const isAuth = async (req, res, next) => {
   try {
     const { token } = req.cookies;
     if (!token) {
-      res.status(400).json({
+      return res.status(401).json({
         message: "user doesn't have a token",
       });
     }
     const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
     if (!verifyToken) {
-      res.status(400).json({
+      return res.status(401).json({
         message: "user doesn't have a valid token",
       });
     }
@@ -17,7 +17,7 @@ const isAuth = async (req, res, next) => {
     req.userId = verifyToken.userId;
     next();
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: `isAuth error ${error}`,
     });
   }
