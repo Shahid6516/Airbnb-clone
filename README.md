@@ -47,11 +47,11 @@ A full-stack Airbnb-inspired web application where users can explore, list, and 
 git clone https://github.com/yourusername/airbnb-clone.git
 cd airbnb-clone
 # Install backend dependencies
-cd server
+cd backend
 npm install
 
 # Install frontend dependencies
-cd ../client
+cd frontend
 npm install
 
 # env
@@ -63,11 +63,11 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
 # Run backend
-cd server
+cd backend
 npm run dev
 
 # Run frontend
-cd ../client
+cd frontend
 npm start
 
 The app will be live at:
