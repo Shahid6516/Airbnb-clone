@@ -28,7 +28,7 @@ const Nav = () => {
     try {
       const result = await axios.post(serverUrl + "/api/auth/logout", { withCredentials: true })
 
-     
+
       setUserData(null)
       console.log("Fetched user:", result.data.user);
       console.log("Result for data:", result.data);
@@ -59,7 +59,7 @@ const Nav = () => {
           </button>
         </div>
         <div className="flex items-center gap-[10px] relative">
-          <span className="text-[18px] cursor-pointer rounded-[30px] hover:bg-[#ded9d9] px-[8px] py-[5px] hidden md:block">
+          <span className="text-[18px] cursor-pointer rounded-[30px] hover:bg-[#ded9d9] px-[8px] py-[5px] hidden md:block" onClick={() => navigate("/listingpage1")} >
             List your home
           </span>
           <button
@@ -79,14 +79,26 @@ const Nav = () => {
           {showpopup && (
             <div className="pop-up w-[220px] h-[250px] absolute bg-slate-50 top-[110%] right-[2%] md:right-[10%] border-[1px] border-[#aaa9a9] z-10 rounded-lg">
               <ul className="w-[100%] h-[100%] text-[17px] flex items-start justify-around flex-col py-[10px]">
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => navigate("/login")}>
+             {!userData && <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => {
+                  navigate("/login");
+                  setshowpopup(false);
+                }
+                } >
                   Login
-                </li>
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={handleLogout}>
+                </li>}
+              { userData && <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => {
+                  handleLogout();
+                  setshowpopup(false);
+                }
+                }>
                   Logout
-                </li>
+                </li>}
                 <div className="w-[100%] h-[1px] bg-[#c1c0c0]"></div>
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => {
+                  navigate("/listingpage1");
+                  setshowpopup(false);
+                }
+                }>
                   List your Home
                 </li>
                 <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
@@ -153,7 +165,7 @@ const Nav = () => {
           <h3>Shops</h3>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

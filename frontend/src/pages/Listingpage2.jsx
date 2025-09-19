@@ -69,7 +69,7 @@ const Listingpage2 = () => {
 
 
         </div>
-        <button className="px-[50px] py-[10px] bg-red-600 absolute right-[5%] bottom-[9%] text-white rounded-lg md:px-[100px]" disabled={!category}>
+        <button className="px-[50px] py-[10px] bg-red-600 absolute right-[5%] bottom-[9%] text-white rounded-lg md:px-[100px]" onClick={()=>navigate("/listingpage3")} disabled={!category}>
           Next
         </button>
       </div>
