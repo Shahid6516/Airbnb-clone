@@ -19,7 +19,6 @@ const App = () => {
         <Route path='/listingpage1' element={userData != null ? <ListingPage1 /> : <Navigate to={"/login"} />} />
         <Route path='/listingpage2' element={userData != null ? <Listingpage2 /> : <Navigate to={"/login"} />} />
 
-        {/* <Route path='/listingpage3' element={<ListingPage3/>} /> */}
         <Route path='/listingpage3' element={userData != null ? <ListingPage3 /> : <Navigate to={"/login"} />} />
       </Routes>
 

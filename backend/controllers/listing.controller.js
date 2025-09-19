@@ -3,6 +3,7 @@ import Listing from "../model/listing.model.js";
 import User from "../model/user.model.js";
 
 export const addListing = async (req, res) => {
+  
   try {
     const host = req.userId;
     const { title, description, rent, city, landmark, category } = req.body;

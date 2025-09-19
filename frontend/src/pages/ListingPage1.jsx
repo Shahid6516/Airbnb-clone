@@ -35,9 +35,9 @@ const ListingPage1 = () => {
         setFrontendImage3(URL.createObjectURL(file))
     }
 
-    const handleForm = (e)=>{
-e.preventDefault()
-navigate("/listingpage2")
+    const handleForm = (e) => {
+        e.preventDefault()
+        navigate("/listingpage2")
     }
 
     return (

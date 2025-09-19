@@ -58,11 +58,11 @@ const ListingContext = ({ children }) => {
 
     }
     return (
-        <div>
+        
             <ListingDataContext.Provider value={value}>
                 {children}
             </ListingDataContext.Provider>
-        </div>
+    
     )
 }
 
