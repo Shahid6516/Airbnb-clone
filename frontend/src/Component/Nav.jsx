@@ -73,7 +73,7 @@ const Nav = () => {
             {userData == null && <span>
               <CgProfile className="w-[20px] h-[20px]" />
             </span>}
-            {userData != null && <span className="w-[30px] h-[30px] bg-[#080808] text-white rounded-full flex items-center justify-center">{userData?.name?.slice(0, 1)}</span>}
+            {userData != null && <span className="w-[30px] h-[30px] bg-[#080808] text-white rounded-full flex items-center justify-center">{userData?.name?.slice(0, 1).toUpperCase()}</span>}
           </button>
 
           {showpopup && (

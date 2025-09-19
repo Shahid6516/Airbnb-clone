@@ -37,6 +37,7 @@ const ListingContext = ({ children }) => {
             console.log(result)
         } catch (error) {
             console.log(error)
+
         }
     }
 

@@ -6,9 +6,9 @@ export const addListing = async (req, res) => {
   try {
     const host = req.userId;
     const { title, description, rent, city, landmark, category } = req.body;
-    const image1 = await uploadOnCloudinary(res.files.image1[0].path);
-    const image2 = await uploadOnCloudinary(res.files.image2[0].path);
-    const image3 = await uploadOnCloudinary(res.files.image3[0].path);
+    const image1 = await uploadOnCloudinary(req.files.image1[0].path);
+    const image2 = await uploadOnCloudinary(req.files.image2[0].path);
+    const image3 = await uploadOnCloudinary(req.files.image3[0].path);
 
     const listing = await Listing.create({
       title,
@@ -22,14 +22,18 @@ export const addListing = async (req, res) => {
       image3,
       host,
     });
-    const user = User.findByIdAndUpdate(host,{$push:{listing:listing._id}},{new:true})
+    const user = await User.findByIdAndUpdate(
+      host,
+      { $push: { listing: listing._id } },
+      { new: true }
+    );
 
     if (!user) {
-        return res.status(404).json({message:"User not found"})
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(201).json(listing)
+    res.status(201).json(listing);
   } catch (error) {
-    res.status(500).json({message:`Addlisting Error:${error}`})
+    res.status(500).json({ message: `Addlisting Error:${error}` });
   }
 };
