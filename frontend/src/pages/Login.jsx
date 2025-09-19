@@ -22,7 +22,7 @@ const Login = () => {
       const result = await axios.post(serverUrl + "/api/auth/login", {
         email,
         password
-      }, {withCredentials:true});
+      }, { withCredentials: true });
       setUserData(result.data)
       navigate("/")
       console.log(result);
