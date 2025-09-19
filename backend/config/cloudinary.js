@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
+import path from "path";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,27 +10,31 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
 const uploadOnCloudinary = async (filepath) => {
-  try {
-    if (!filepath) {
-      return null;
-    }
+  if (!filepath) return null;
 
-    const uploadResult = await cloudinary.uploader.upload(filepath, {
+  // Ensure the file path is absolute
+  const absolutePath = path.isAbsolute(filepath)
+    ? filepath
+    : path.join(process.cwd(), filepath);
+
+  try {
+    const uploadResult = await cloudinary.uploader.upload(absolutePath, {
       resource_type: "auto",
     });
 
-    // remove local file after successful upload
-    fs.unlinkSync(filepath);
+    // Remove local file after successful upload
+    if (fs.existsSync(absolutePath)) {
+      fs.unlinkSync(absolutePath);
+    }
 
     return uploadResult.secure_url;
   } catch (error) {
     console.error("Cloudinary upload error:", error);
 
-    // remove local file safely if exists
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
+    // Safely remove the file if it exists
+    if (fs.existsSync(absolutePath)) {
+      fs.unlinkSync(absolutePath);
     }
 
     throw error;
