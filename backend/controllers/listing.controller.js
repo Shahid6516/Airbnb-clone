@@ -3,6 +3,10 @@ import Listing from "../model/listing.model.js";
 import User from "../model/user.model.js";
 
 export const addListing = async (req, res) => {
+     console.log("====== Incoming Add Listing ======");
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
+    console.log("USER:", req.userId);
   
   try {
     const host = req.userId;
