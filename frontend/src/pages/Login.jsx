@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { authDataContext } from "../Context/AuthContext";
+
 import axios from "axios";
 import { userDataContext } from "../Context/UserContext";
 
@@ -11,11 +12,14 @@ import { userDataContext } from "../Context/UserContext";
 const Login = () => {
   const [show, setshow] = useState("false");
   const navigate = useNavigate();
-  const { serverUrl } = useContext(authDataContext)
   const { userData, setUserData } = useContext(userDataContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { serverUrl, loading, setLoading } = useContext(authDataContext)
+
+
   const handleLogin = async (e) => {
+    setLoading(true)
     e.preventDefault()
 
     try {
@@ -23,10 +27,12 @@ const Login = () => {
         email,
         password
       }, { withCredentials: true });
+      setLoading(false)
       setUserData(result.data)
       navigate("/")
       console.log(result);
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
@@ -87,8 +93,8 @@ const Login = () => {
             />
           )}
         </div>
-        <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px]">
-          Login
+        <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px]" disabled={loading}>
+          {loading ? "Loading..." : 'Login'}
         </button>
         <p className="text-[18px]">Don't have an account ? <span className="text-[19px] text-red-600 cursor-pointer" onClick={() => navigate("/signup")}>Signup </span></p>
       </form>

@@ -10,14 +10,17 @@ import { userDataContext } from "../Context/UserContext";
 const Signup = () => {
     const [show, setshow] = useState("false");
     const navigate = useNavigate();
-    const { serverUrl } = useContext(authDataContext);
+    // const { serverUrl } = useContext(authDataContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const { userData, setUserData } = useContext(userDataContext)
-
     const [password, setPassword] = useState("");
+    // const [loading, setLoading] = useContext(authDataContext)
+    const { serverUrl, loading, setLoading } = useContext(authDataContext)
+
 
     const handleSignUp = async (e) => {
+        setLoading(true)
         e.preventDefault()
 
         try {
@@ -26,10 +29,13 @@ const Signup = () => {
                 email,
                 password
             }, { withCredentials: true });
+            setLoading(false)
+
             setUserData(result.data)
             navigate("/")
             console.log(result);
         } catch (error) {
+            setLoading(true)
             console.log(error);
         }
     };
@@ -105,8 +111,8 @@ const Signup = () => {
                         />
                     )}
                 </div>
-                <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] mt-[12px]">
-                    Signup
+                <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] mt-[12px]" disabled={loading}>
+                    {loading ? "loading..." : "Signup"}
                 </button>
                 <p className="text-[18px]">
                     Already have an account ?{" "}

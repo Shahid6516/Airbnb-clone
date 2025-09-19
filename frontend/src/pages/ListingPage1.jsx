@@ -65,6 +65,7 @@ const ListingPage1 = () => {
                     <input
                         type="text"
                         id="title"
+                        placeholder="_bhk house or best tile"
                         required
                         onChange={(e) => setTitle(e.target.value)} value={title}
                         className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
@@ -124,6 +125,7 @@ const ListingPage1 = () => {
                     <input
                         type="number"
                         id="rent"
+                        placeholder="RS._____/day"
                         required
                         onChange={(e) => setRent(e.target.value)} value={rent}
                         className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
@@ -136,6 +138,7 @@ const ListingPage1 = () => {
                     <input
                         type="text"
                         id="city"
+                        placeholder="city,country"
                         required
                         onChange={(e) => setCity(e.target.value)} value={city}
                         className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"

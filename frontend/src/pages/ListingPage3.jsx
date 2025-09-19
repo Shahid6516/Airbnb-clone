@@ -18,7 +18,8 @@ const ListingPage3 = () => {
     city, setCity,
     landmark, setLandMark,
     category, setCategory,
-    handleAddListing
+    handleAddListing,
+    adding,setAdding,
   } = useContext(ListingDataContext)
   return (
     <div className='w-[100%] h-[140vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
@@ -58,8 +59,8 @@ const ListingPage3 = () => {
       <div className="w-[95%] flex items-start justify-start text-[18px] md:w-[80%] md:text-[25px] ">{`RS. ${rent.toUpperCase()} /Day`}</div>
 
       <div className='w-[100%] h-[50px] flex items-start justify-start px-[10px] md:px-[120px]'>
-        <button className="px-[50px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" onClick={handleAddListing}>
-          Add Listing
+        <button className="px-[50px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" onClick={handleAddListing} disabled={adding}>
+          {adding ? "adding..." :"Add your list"}
         </button>
 
       </div>

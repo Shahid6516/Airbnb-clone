@@ -2,6 +2,8 @@ import axios from 'axios'
 import { createContext, useContext, useState } from 'react'
 import { authDataContext } from './AuthContext'
 export const ListingDataContext = createContext()
+import { useNavigate } from 'react-router-dom';
+
 const ListingContext = ({ children }) => {
 
     const [title, setTitle] = useState("")
@@ -16,11 +18,13 @@ const ListingContext = ({ children }) => {
     const [city, setCity] = useState("")
     const [landmark, setLandMark] = useState("")
     const [category, setCategory] = useState("")
+    const [adding, setAdding] = useState(false)
     const { serverUrl } = useContext(authDataContext)
-
+    const navigate = useNavigate()
 
 
     const handleAddListing = async () => {
+        setAdding(true)
         try {
             const formData = new FormData()
             formData.append("title", title)
@@ -34,9 +38,28 @@ const ListingContext = ({ children }) => {
             formData.append("category", category)
 
             const result = await axios.post(serverUrl + "/api/listing/add", formData, { withCredentials: true })
+            setAdding(true)
+
             console.log(result)
+
+            navigate("/")
+            setTitle("")
+            setDescription("")
+            setFrontendImage1(null)
+            setFrontendImage2(null)
+            setFrontendImage3(null)
+            setBackendImage1(null)
+            setBackendImage2(null)
+            setBackendImage3(null)
+            setRent("")
+            setCity("")
+            setLandMark("")
+            setCategory("")
+
         } catch (error) {
+            setAdding(false)
             console.log(error)
+
 
         }
     }
@@ -54,15 +77,16 @@ const ListingContext = ({ children }) => {
         city, setCity,
         landmark, setLandMark,
         category, setCategory,
-        handleAddListing
+        handleAddListing,
+         adding,setAdding,
 
     }
     return (
-        
-            <ListingDataContext.Provider value={value}>
-                {children}
-            </ListingDataContext.Provider>
-    
+
+        <ListingDataContext.Provider value={value}>
+            {children}
+        </ListingDataContext.Provider>
+
     )
 }
 
