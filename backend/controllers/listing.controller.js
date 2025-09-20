@@ -3,11 +3,11 @@ import Listing from "../model/listing.model.js";
 import User from "../model/user.model.js";
 
 export const addListing = async (req, res) => {
-     console.log("====== Incoming Add Listing ======");
-    console.log("BODY:", req.body);
-    console.log("FILES:", req.files);
-    console.log("USER:", req.userId);
-  
+  console.log("====== Incoming Add Listing ======");
+  console.log("BODY:", req.body);
+  console.log("FILES:", req.files);
+  console.log("USER:", req.userId);
+
   try {
     const host = req.userId;
     const { title, description, rent, city, landmark, category } = req.body;
@@ -40,5 +40,14 @@ export const addListing = async (req, res) => {
     res.status(201).json(listing);
   } catch (error) {
     res.status(500).json({ message: `Addlisting Error:${error}` });
+  }
+};
+
+export const getListing = async (req, res) => {
+  try {
+    const listing = await Listing.find().sort({ createdAt: -1 });
+    res.status(200).json({ listing });
+  } catch (error) {
+    res.status(500).json({ message: `getListing Error:${error}` });
   }
 };

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 import { createContext, useContext, useState } from 'react'
 import { authDataContext } from './AuthContext'
 export const ListingDataContext = createContext()
@@ -19,6 +19,7 @@ const ListingContext = ({ children }) => {
     const [landmark, setLandMark] = useState("")
     const [category, setCategory] = useState("")
     const [adding, setAdding] = useState(false)
+    const [listingData, setListingData] = useState([])
     const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
 
@@ -64,6 +65,15 @@ const ListingContext = ({ children }) => {
         }
     }
 
+    const getListing = async () => {
+        try {
+            const result = await axios.get(serverUrl + "/api/listing/get", { withCredentials: true })
+            setListingData(result.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const value = {
         title, setTitle,
         description, setDescription,
@@ -78,7 +88,9 @@ const ListingContext = ({ children }) => {
         landmark, setLandMark,
         category, setCategory,
         handleAddListing,
-         adding,setAdding,
+        adding, setAdding,
+        listingData, setListingData,
+        getListing
 
     }
     return (
