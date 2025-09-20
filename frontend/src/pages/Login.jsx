@@ -10,7 +10,7 @@ import { userDataContext } from "../Context/UserContext";
 
 
 const Login = () => {
-  const [show, setshow] = useState("false");
+  const [show, setshow] = useState(false);
   const navigate = useNavigate();
   const { userData, setUserData } = useContext(userDataContext)
   const [email, setEmail] = useState("")

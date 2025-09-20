@@ -46,8 +46,21 @@ export const addListing = async (req, res) => {
 export const getListing = async (req, res) => {
   try {
     const listing = await Listing.find().sort({ createdAt: -1 });
-    res.status(200).json(listing );
+    res.status(200).json(listing);
   } catch (error) {
     res.status(500).json({ message: `getListing Error:${error}` });
+  }
+};
+
+export const findListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      res.status(400).json({ message: "Listing not found ❌" });
+    }
+    res.status(200).json(listing);
+  } catch (error) {
+    res.status(500).json({ message: `findListing Error: ${error}` });
   }
 };

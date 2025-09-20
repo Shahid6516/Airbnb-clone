@@ -21,6 +21,7 @@ const ListingContext = ({ children }) => {
     const [adding, setAdding] = useState(false)
     const [listingData, setListingData] = useState([])
     const [newListData, setNewListData] = useState([])
+    const [cardDetails, setCardDetails] = useState(null)
 
     const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
@@ -59,13 +60,26 @@ const ListingContext = ({ children }) => {
         }
     }
 
+    const handleViewCard = async (id) => {
+        try {
+            const result = await axios.get(serverUrl + `/api/listing/findlistingByid/${id}`, { withCredentials: true })
+            console.log(result.data)
+            setCardDetails(result.data)
+            navigate("/viewcard")
+        } catch (error) {
+            console.log(error)
+
+        }
+
+    }
+
     // Get all listings
     const getListing = async () => {
         try {
             const result = await axios.get(serverUrl + "/api/listing/get", { withCredentials: true })
             console.log("Backend response:", result.data)
-                setListingData(result.data)
-                setNewListData(result.data)
+            setListingData(result.data)
+            setNewListData(result.data)
 
             // // Ensure listingData is always an array
             // if (Array.isArray(result.data)) {
@@ -107,7 +121,9 @@ const ListingContext = ({ children }) => {
         adding, setAdding,
         listingData, setListingData,
         getListing,
-        newListData, setNewListData
+        newListData, setNewListData,
+        handleViewCard,
+        cardDetails, setCardDetails
     }
 
     return (
