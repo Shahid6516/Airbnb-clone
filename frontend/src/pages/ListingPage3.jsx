@@ -60,7 +60,7 @@ const ListingPage3 = () => {
 
       <div className='w-[100%] h-[50px] flex items-start justify-start px-[10px] md:px-[120px]'>
         <button className="px-[50px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" onClick={handleAddListing} disabled={adding}>
-          {adding ? "adding..." :"Add your list"}
+          {adding ? "Adding..." :"Add your list"}
         </button>
 
       </div>

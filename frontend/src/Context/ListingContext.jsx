@@ -82,7 +82,7 @@ const ListingContext = ({ children }) => {
 
     useEffect(() => {
         getListing()
-    }, [])
+    }, [adding])
 
     const value = {
         title, setTitle,

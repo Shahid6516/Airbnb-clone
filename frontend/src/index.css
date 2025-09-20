@@ -3,13 +3,14 @@
 
 
 /* ::-webkit-scrollbar-button {
-  display: none;
-}
+  display: block;
+} */
 
 ::-webkit-scrollbar {
   height: 4px; 
   background: lightgray;   
 }
 ::-webkit-scrollbar-thumb {
-  min-width: 50%; 
-} */
+  min-width: 40%; 
+  background: rgb(110, 109, 109);
+}
