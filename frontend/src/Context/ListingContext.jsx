@@ -1,11 +1,11 @@
-import axios, { Axios } from 'axios'
-import { createContext, useContext, useState } from 'react'
+import axios from 'axios'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { authDataContext } from './AuthContext'
+import { useNavigate } from 'react-router-dom'
+
 export const ListingDataContext = createContext()
-import { useNavigate } from 'react-router-dom';
 
 const ListingContext = ({ children }) => {
-
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [frontendImage1, setFrontendImage1] = useState(null)
@@ -20,10 +20,11 @@ const ListingContext = ({ children }) => {
     const [category, setCategory] = useState("")
     const [adding, setAdding] = useState(false)
     const [listingData, setListingData] = useState([])
+
     const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
 
-
+    // Add listing
     const handleAddListing = async () => {
         setAdding(true)
         try {
@@ -38,41 +39,50 @@ const ListingContext = ({ children }) => {
             formData.append("landmark", landmark)
             formData.append("category", category)
 
-            const result = await axios.post(serverUrl + "/api/listing/add", formData, { withCredentials: true })
-            setAdding(true)
+            await axios.post(serverUrl + "/api/listing/add", formData, { withCredentials: true })
 
-            console.log(result)
+            // Reset form
+            setTitle(""); setDescription(""); setFrontendImage1(null)
+            setFrontendImage2(null); setFrontendImage3(null)
+            setBackendImage1(null); setBackendImage2(null); setBackendImage3(null)
+            setRent(""); setCity(""); setLandMark(""); setCategory("")
+            setAdding(false)
 
+            // Refresh listings after adding
+            getListing()
             navigate("/")
-            setTitle("")
-            setDescription("")
-            setFrontendImage1(null)
-            setFrontendImage2(null)
-            setFrontendImage3(null)
-            setBackendImage1(null)
-            setBackendImage2(null)
-            setBackendImage3(null)
-            setRent("")
-            setCity("")
-            setLandMark("")
-            setCategory("")
 
         } catch (error) {
             setAdding(false)
             console.log(error)
-
-
         }
     }
 
+    // Get all listings
     const getListing = async () => {
         try {
             const result = await axios.get(serverUrl + "/api/listing/get", { withCredentials: true })
-            setListingData(result.data)
+            console.log("Backend response:", result.data)
+
+            // Ensure listingData is always an array
+            if (Array.isArray(result.data)) {
+                setListingData(result.data)
+            } else if (result.data && Array.isArray(result.data.listings)) {
+                setListingData(result.data.listings)
+            } else if (result.data && typeof result.data === "object") {
+                setListingData([result.data]) // wrap single object in array
+            } else {
+                setListingData([])
+            }
         } catch (error) {
             console.log(error)
+            setListingData([])
         }
     }
+
+    useEffect(() => {
+        getListing()
+    }, [])
 
     const value = {
         title, setTitle,
@@ -91,14 +101,12 @@ const ListingContext = ({ children }) => {
         adding, setAdding,
         listingData, setListingData,
         getListing
-
     }
-    return (
 
+    return (
         <ListingDataContext.Provider value={value}>
             {children}
         </ListingDataContext.Provider>
-
     )
 }
 
