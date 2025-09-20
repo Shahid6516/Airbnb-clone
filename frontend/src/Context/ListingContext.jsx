@@ -20,6 +20,7 @@ const ListingContext = ({ children }) => {
     const [category, setCategory] = useState("")
     const [adding, setAdding] = useState(false)
     const [listingData, setListingData] = useState([])
+    const [newListData, setNewListData] = useState([])
 
     const { serverUrl } = useContext(authDataContext)
     const navigate = useNavigate()
@@ -63,17 +64,22 @@ const ListingContext = ({ children }) => {
         try {
             const result = await axios.get(serverUrl + "/api/listing/get", { withCredentials: true })
             console.log("Backend response:", result.data)
-
-            // Ensure listingData is always an array
-            if (Array.isArray(result.data)) {
                 setListingData(result.data)
-            } else if (result.data && Array.isArray(result.data.listings)) {
-                setListingData(result.data.listings)
-            } else if (result.data && typeof result.data === "object") {
-                setListingData([result.data]) // wrap single object in array
-            } else {
-                setListingData([])
-            }
+                setNewListData(result.data)
+
+            // // Ensure listingData is always an array
+            // if (Array.isArray(result.data)) {
+            //     setListingData(result.data)
+            // } else if (result.data && Array.isArray(result.data.listings)) {
+            //     setListingData(result.data.listings)
+            // } else if (result.data && typeof result.data === "object") {
+            //     setListingData([result.data]) // wrap single object in array
+            // } else {
+            //     setListingData([])
+            // }
+
+
+
         } catch (error) {
             console.log(error)
             setListingData([])
@@ -100,7 +106,8 @@ const ListingContext = ({ children }) => {
         handleAddListing,
         adding, setAdding,
         listingData, setListingData,
-        getListing
+        getListing,
+        newListData, setNewListData
     }
 
     return (

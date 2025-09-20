@@ -8,9 +8,12 @@
 
 ::-webkit-scrollbar {
   height: 4px; 
-  background: lightgray;   
+  background: lightgrey;   
 }
 ::-webkit-scrollbar-thumb {
-  min-width: 40%; 
+  min-width: 4%; 
   background: rgb(110, 109, 109);
+
+  /* background: transparent; */
+
 }
