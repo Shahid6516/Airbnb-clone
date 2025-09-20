@@ -118,7 +118,10 @@ const Nav = () => {
                 }>
                   List your Home
                 </li>
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => {
+                  navigate("/mylisting");
+                  setshowpopup(false);
+                }}>
                   My Listing
                 </li>
                 <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">

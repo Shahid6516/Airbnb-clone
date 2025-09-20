@@ -7,6 +7,7 @@ import Listingpage2 from './pages/Listingpage2'
 import ListingPage3 from './pages/ListingPage3'
 import { useContext } from 'react'
 import { userDataContext } from './Context/UserContext'
+import MyListing from './pages/MyListing'
 
 const App = () => {
   const { userData } = useContext(userDataContext)
@@ -16,10 +17,10 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/listingpage1' element={userData != null ? <ListingPage1 /> : <Navigate to={"/login"} />} />
-        <Route path='/listingpage2' element={userData != null ? <Listingpage2 /> : <Navigate to={"/login"} />} />
-
-        <Route path='/listingpage3' element={userData != null ? <ListingPage3 /> : <Navigate to={"/login"} />} />
+        <Route path='/listingpage1' element={userData != null ? <ListingPage1 /> : <Navigate to={"/"} />} />
+        <Route path='/listingpage2' element={userData != null ? <Listingpage2 /> : <Navigate to={"/"} />} />
+        <Route path='/listingpage3' element={userData != null ? <ListingPage3 /> : <Navigate to={"/"} />} />
+        <Route path='/mylisting' element={userData != null ? <MyListing /> : <Navigate to={"/"} />} />
       </Routes>
 
     </>

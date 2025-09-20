@@ -15,10 +15,18 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
-    listing: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Booking",
-    },
+    listing: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Listing",
+      },
+    ],
+    booking: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Booking",
+      },
+    ],
   },
   { timestamps: true }
 );

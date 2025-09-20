@@ -5,7 +5,10 @@ import genToken from "../config/token.js";
 export const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    const existUser = await User.findOne({ email });
+    const existUser = await User.findOne({ email }).populate(
+      "listing",
+      "title image1 image2 image3 description rent category city landmark"
+    );
 
     if (existUser) {
       return res.status(400).json({
@@ -68,8 +71,6 @@ export const login = async (req, res) => {
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
-    
 
     return res.status(200).json({
       user,
