@@ -68,7 +68,7 @@ npm run dev
 
 # Run frontend
 cd frontend
-npm start
+npm run dev
 
 The app will be live at:
 👉 Frontend: http://localhost:3000
