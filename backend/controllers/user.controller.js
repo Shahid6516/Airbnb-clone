@@ -9,11 +9,11 @@ export const getCurrentUser = async (req, res) => {
         "title image1 image2 image3 description rent category city landmark"
       );
     if (!user) {
-      res.status(400).json({ message: "User does not found" });
+      return res.status(400).json({ message: "User does not found" });
     }
-    res.status(200).json({ user });
+    return res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({ message: `getCurrentUser error ${error}` });
+    return res.status(500).json({ message: `getCurrentUser error ${error}` });
   }
 };
 

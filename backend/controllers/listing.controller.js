@@ -67,11 +67,20 @@ export const findListing = async (req, res) => {
 
 export const updateListing = async (req, res) => {
   try {
+    let image1;
+    let image2;
+    let image3;
     const { id } = req.params;
     const { title, description, rent, city, landmark, category } = req.body;
-    const image1 = await uploadOnCloudinary(req.files.image1[0].path);
-    const image2 = await uploadOnCloudinary(req.files.image2[0].path);
-    const image3 = await uploadOnCloudinary(req.files.image3[0].path);
+    if (req.files.image1) {
+      image1 = await uploadOnCloudinary(req.files.image1[0].path);
+    }
+    if (req.files.image2) {
+      image2 = await uploadOnCloudinary(req.files.image2[0].path);
+    }
+    if (req.files.image3) {
+      image3 = await uploadOnCloudinary(req.files.image3[0].path);
+    }
 
     const listing = await Listing.findByIdAndUpdate(
       id,
@@ -85,10 +94,13 @@ export const updateListing = async (req, res) => {
         image1,
         image2,
         image3,
-        host,
       },
       { new: true }
     );
     return res.status(201).json(listing);
-  } catch (error) {}
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Update Listing Error: ${error.message || error}` });
+  }
 };
