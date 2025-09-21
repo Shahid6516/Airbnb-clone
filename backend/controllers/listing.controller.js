@@ -37,18 +37,18 @@ export const addListing = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(201).json(listing);
+    return res.status(201).json(listing);
   } catch (error) {
-    res.status(500).json({ message: `Addlisting Error:${error}` });
+    return res.status(500).json({ message: `Addlisting Error:${error}` });
   }
 };
 
 export const getListing = async (req, res) => {
   try {
     const listing = await Listing.find().sort({ createdAt: -1 });
-    res.status(200).json(listing);
+    return res.status(200).json(listing);
   } catch (error) {
-    res.status(500).json({ message: `getListing Error:${error}` });
+    return res.status(500).json({ message: `getListing Error:${error}` });
   }
 };
 
@@ -57,10 +57,38 @@ export const findListing = async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
     if (!listing) {
-      res.status(400).json({ message: "Listing not found ❌" });
+      return res.status(400).json({ message: "Listing not found ❌" });
     }
-    res.status(200).json(listing);
+    return res.status(200).json(listing);
   } catch (error) {
-    res.status(500).json({ message: `findListing Error: ${error}` });
+    return res.status(500).json({ message: `findListing Error: ${error}` });
   }
+};
+
+export const updateListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, rent, city, landmark, category } = req.body;
+    const image1 = await uploadOnCloudinary(req.files.image1[0].path);
+    const image2 = await uploadOnCloudinary(req.files.image2[0].path);
+    const image3 = await uploadOnCloudinary(req.files.image3[0].path);
+
+    const listing = await Listing.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        rent,
+        city,
+        landmark,
+        category,
+        image1,
+        image2,
+        image3,
+        host,
+      },
+      { new: true }
+    );
+    return res.status(201).json(listing);
+  } catch (error) {}
 };

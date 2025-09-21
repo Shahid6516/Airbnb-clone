@@ -31,7 +31,7 @@ const ListingPage3 = () => {
       </div>
 
       <div className='w-[95%] md:mt-8 flex items-start justify-start text-[25px] md:w-[80%] mb-[10px] '>
-        <h1 className='text-[20px] text-[#272727] md:text-[30px] text-ellipsis text-nowrap overflow-hidden '>{`IN ${landmark.toUpperCase()}, ${city.toUpperCase()}`}</h1>
+        <h1 className='text-[20px] text-[#272727] md:text-[30px] text-ellipsis text-nowrap overflow-hidden px-[70px] md:px-[0px]'>{`IN ${landmark.toUpperCase()}, ${city.toUpperCase()}`}</h1>
       </div>
 
       <div className='w-[95%] h-[400px] flex items-center justify-center flex-col md:w-[80%] md:flex-row '>
