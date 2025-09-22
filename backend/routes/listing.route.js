@@ -18,7 +18,7 @@ listingRouter.post(
 
 listingRouter.get("/get", getListing);
 listingRouter.get("/findlistingbyid/:id",isAuth, findListing);
-listingRouter.get("/deletelistingbyid/:id",isAuth, deleteListing);
+listingRouter.delete("/delete/:id",isAuth, deleteListing);
 
 listingRouter.post(
   "/update/:id",

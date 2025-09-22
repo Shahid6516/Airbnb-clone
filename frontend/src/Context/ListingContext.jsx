@@ -20,6 +20,7 @@ const ListingContext = ({ children }) => {
     const [category, setCategory] = useState("")
     const [adding, setAdding] = useState(false)
     const [updating, setUpdating] = useState(false)
+    const [deleteing, setDeleting] = useState(false)
     const [listingData, setListingData] = useState([])
     const [newListData, setNewListData] = useState([])
     const [cardDetails, setCardDetails] = useState(null)
@@ -103,7 +104,7 @@ const ListingContext = ({ children }) => {
 
     useEffect(() => {
         getListing()
-    }, [adding,updating])
+    }, [adding, updating, deleteing])
 
     const value = {
         title, setTitle,
@@ -125,7 +126,7 @@ const ListingContext = ({ children }) => {
         newListData, setNewListData,
         handleViewCard,
         cardDetails, setCardDetails,
-        updating, setUpdating,
+        updating, setUpdating,setDeleting
     }
 
     return (

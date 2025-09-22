@@ -19,8 +19,8 @@ const Login = () => {
 
 
   const handleLogin = async (e) => {
-    setLoading(true)
     e.preventDefault()
+    setLoading(true)
 
     try {
       const result = await axios.post(serverUrl + "/api/auth/login", {
@@ -28,7 +28,8 @@ const Login = () => {
         password
       }, { withCredentials: true });
       setLoading(false)
-      setUserData(result.data)
+      setUserData(result.data.user)
+
       navigate("/")
       console.log(result);
     } catch (error) {

@@ -28,6 +28,7 @@ const ViewCard = () => {
 
   const { serverUrl } = useContext(authDataContext)
   const { updating, setUpdating } = useContext(ListingDataContext)
+  const { deleting, setDeleting } = useContext(ListingDataContext)
 
   const handleUpdateListing = async () => {
     setUpdating(true)
@@ -63,6 +64,19 @@ const ViewCard = () => {
     }
   }
 
+  const handleDeleteListing = async () => {
+    setDeleting(true)
+    try {
+      const result = await axios.delete(serverUrl + `/api/listing/delete/${cardDetails._id}`, { withCredentials: true })
+      setDeleting(false)
+      navigate("/")
+      console.log(result.data)
+    } catch (error) {
+      console.log(error)
+      setDeleting(false)
+
+    }
+  }
 
   const handleImage1 = (e) => {
     const file = e.target.files[0]
@@ -247,8 +261,8 @@ const ViewCard = () => {
             <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" onClick={handleUpdateListing} disabled={updating}>
               {updating ? "Updating..." : "Update Listing"}
             </button>
-            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" >
-              Delete Listing
+            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" disabled={deleteing} onClick={handleDeleteListing} >
+              {deleting ? "Deleting..." : "Delete Listing"}
             </button>
           </div>
         </form>

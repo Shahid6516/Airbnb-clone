@@ -87,10 +87,16 @@ const Nav = () => {
               <GiHamburgerMenu className="w-[20px] h-[20px]" />
             </span>
 
-            {userData == null && <span>
-              <CgProfile className="w-[20px] h-[20px]" />
-            </span>}
-            {userData != null && <span className="w-[30px] h-[30px] bg-[#080808] text-white rounded-full flex items-center justify-center">{userData?.name?.slice(0, 1).toUpperCase()}</span>}
+            {userData ? (
+              <span className="w-8 h-8 bg-[#080808] text-white rounded-full flex items-center justify-center font-bold">
+                {userData.name.charAt(0).toUpperCase()}
+              </span>
+            ) : (
+              <CgProfile className="w-5 h-5 text-gray-600" />
+            )}
+
+
+
           </button>
 
           {showpopup && (
