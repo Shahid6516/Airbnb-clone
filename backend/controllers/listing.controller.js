@@ -104,3 +104,33 @@ export const updateListing = async (req, res) => {
       .json({ message: `Update Listing Error: ${error.message || error}` });
   }
 };
+
+export const deleteListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const listing = await Listing.findByIdAndDelete(id);
+
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      listing.host,
+      { $pull: { listing: listing._id } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ message: "Listing Deleted" });
+
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Delete Listing Error: ${error.message || error}` });
+  }
+};
+

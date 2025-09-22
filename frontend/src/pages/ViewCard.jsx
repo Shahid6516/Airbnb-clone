@@ -243,11 +243,14 @@ const ViewCard = () => {
               className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
             />
           </div>
-
-          <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px]" onClick={handleUpdateListing} disabled={updating}>
-            {updating ? "Updating..." : "Update Listing"}
-          </button>
-
+          <div className='w-[100%] md:mr-15 flex items-center justify-center gap-[30px] mt-5'>
+            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" onClick={handleUpdateListing} disabled={updating}>
+              {updating ? "Updating..." : "Update Listing"}
+            </button>
+            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" >
+              Delete Listing
+            </button>
+          </div>
         </form>
 
 
