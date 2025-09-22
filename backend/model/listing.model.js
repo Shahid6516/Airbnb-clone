@@ -16,6 +16,10 @@ const listingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    guest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     image1: {
       type: String,
       required: true,
