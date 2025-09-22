@@ -13,6 +13,7 @@ const ViewCard = () => {
   const { cardDetails } = useContext(ListingDataContext)
   const { userData } = useContext(userDataContext)
   const [updatePopUp, setUpdatePopUp] = useState(false)
+  const [bookingPopUp, setBookingPopUp] = useState(false)
   const [title, setTitle] = useState(cardDetails.title)
   const [description, setDescription] = useState(cardDetails.description)
   const [frontendImage1, setFrontendImage1] = useState(null)
@@ -272,9 +273,9 @@ const ViewCard = () => {
 
 {/* ############################################################################## */}
 
-      <div className='w-[100%] h-[100%] flex items-center justify-center bg-[#000000c8] absolute top-[0px] z-[100] backdrop-blur-sm'>
+      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center bg-[#000000c8] absolute top-[0px] z-[100] backdrop-blur-sm'>
 
-      </div>
+      </div>}
 
 
 
