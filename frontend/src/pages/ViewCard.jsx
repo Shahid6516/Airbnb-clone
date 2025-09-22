@@ -95,7 +95,7 @@ const ViewCard = () => {
 
 
   useEffect(() => {
-    const today = new Date.toISOString().spilit('T')[0]
+    const today = new Date().toISOString().split('T')[0]
     setMinDate(today)
   }, [])
 
@@ -297,6 +297,7 @@ const ViewCard = () => {
                 <input
                   type="date"
                   id="checkIn"
+                  min={minDate}
                   required
                   className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
                 />
@@ -310,6 +311,8 @@ const ViewCard = () => {
                 <input
                   type="date"
                   id="checkIn"
+                  min={minDate}
+
                   required
                   className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
                 />
