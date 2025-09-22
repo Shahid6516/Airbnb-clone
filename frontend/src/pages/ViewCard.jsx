@@ -134,7 +134,7 @@ const ViewCard = () => {
         {cardDetails.host == userData._id && < button className="px-[30px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px] text-nowrap" onClick={() => setUpdatePopUp(prev => !prev)}>
           Edit Listing
         </button>}
-        {cardDetails.host != userData._id && <button className="px-[30px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" >
+        {cardDetails.host != userData._id && <button className="px-[30px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" onClick={() => setBookingPopUp(prev => !prev)}>
           Reserve
         </button>}
       </div>
@@ -262,7 +262,7 @@ const ViewCard = () => {
             <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" onClick={handleUpdateListing} disabled={updating}>
               {updating ? "Updating..." : "Update Listing"}
             </button>
-            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" disabled={deleteing} onClick={handleDeleteListing} >
+            <button className="px-[10px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[15px] md:text-[18px] text-nowrap" disabled={deleting} onClick={handleDeleteListing} >
               {deleting ? "Deleting..." : "Delete Listing"}
             </button>
           </div>
@@ -271,9 +271,29 @@ const ViewCard = () => {
 
       </div>}
 
-{/* ############################################################################## */}
+      {/* ############################################################################## */}
 
-      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center bg-[#000000c8] absolute top-[0px] z-[100] backdrop-blur-sm'>
+      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[30px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px'>
+        <RxCross2 className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => setBookingPopUp(false)} />
+        <div className=''>
+          hello
+        </div>
+        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start flex-col gap-[10px] border-[1px] border-[#dedddd] '>
+          <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3] '>Confirm & Book</h1>
+
+          <div className='w-[100%] h-[70%] bg-[#00000033] mt-[10px] rounded-lg p-[10px] '>
+            <h3 className='text-[19px] font-semibold '>Your Trip -</h3>
+          </div>
+
+
+
+        </form>
+
+
+
+
+
+
 
       </div>}
 
