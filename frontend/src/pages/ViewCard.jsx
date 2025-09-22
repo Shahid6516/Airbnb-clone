@@ -6,6 +6,7 @@ import { userDataContext } from '../Context/UserContext'
 import { RxCross2 } from "react-icons/rx";
 import axios from 'axios';
 import { authDataContext } from '../Context/AuthContext';
+import { useEffect } from 'react';
 
 
 const ViewCard = () => {
@@ -26,10 +27,10 @@ const ViewCard = () => {
   const [city, setCity] = useState(cardDetails.city)
   const [landmark, setLandMark] = useState(cardDetails.landmark)
   const { getListing } = useContext(ListingDataContext);
-
   const { serverUrl } = useContext(authDataContext)
   const { updating, setUpdating } = useContext(ListingDataContext)
   const { deleting, setDeleting } = useContext(ListingDataContext)
+  const [minDate, setMinDate] = useState("")
 
   const handleUpdateListing = async () => {
     setUpdating(true)
@@ -91,6 +92,12 @@ const ViewCard = () => {
     const file = e.target.files[0]
     setBackendImage3(file)
   }
+
+
+  useEffect(() => {
+    const today = new Date.toISOString().spilit('T')[0]
+    setMinDate(today)
+  }, [])
 
   return (
     <div className='w-[100%] h-[140vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
@@ -252,9 +259,7 @@ const ViewCard = () => {
               type="text"
               id="landmark"
               required
-
               onChange={(e) => setLandMark(e.target.value)} value={landmark}
-
               className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[20px] text-[18px]"
             />
           </div>
@@ -278,14 +283,45 @@ const ViewCard = () => {
         <div className=''>
           hello
         </div>
-        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start flex-col gap-[10px] border-[1px] border-[#dedddd] '>
+        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd] '>
           <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3] '>Confirm & Book</h1>
 
-          <div className='w-[100%] h-[70%] bg-[#00000033] mt-[10px] rounded-lg p-[10px] '>
+          <div className='w-[100%] h-[70%] mt-[10px] rounded-lg p-[10px] '>
             <h3 className='text-[19px] font-semibold '>Your Trip -</h3>
+
+            <div className='flex items-center flex-col'>
+              <div className="w-[80%] flex items-center justify-center md:items-center md:justify-center mt-[20px] gap-[30px] flex-col md:flex-row ">
+                <label htmlFor="checkin" className="text-[20px]">
+                  Checkin
+                </label>
+                <input
+                  type="date"
+                  id="checkIn"
+                  required
+                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                />
+              </div>
+
+
+              <div className="w-[80%] flex items-center justify-center md:items-center md:justify-center mt-[20px] gap-[20px] flex-col md:flex-row ">
+                <label htmlFor="checkin" className="text-[20px]">
+                  Checkout
+                </label>
+                <input
+                  type="date"
+                  id="checkIn"
+                  required
+                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                />
+              </div>
+
+
+              <button className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[18px] text-nowrap" >
+                Book
+              </button>
+            </div>
+
           </div>
-
-
 
         </form>
 
