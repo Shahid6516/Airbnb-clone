@@ -270,6 +270,16 @@ const ViewCard = () => {
 
       </div>}
 
+{/* ############################################################################## */}
+
+      <div className='w-[100%] h-[100%] flex items-center justify-center bg-[#000000c8] absolute top-[0px] z-[100] backdrop-blur-sm'>
+
+      </div>
+
+
+
+
+
     </div >
 
   )
