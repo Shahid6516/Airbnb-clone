@@ -1,5 +1,5 @@
 import { useContext, useState, } from 'react'
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaStar } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { ListingDataContext } from '../Context/ListingContext';
 import { userDataContext } from '../Context/UserContext'
@@ -7,6 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import axios from 'axios';
 import { authDataContext } from '../Context/AuthContext';
 import { useEffect } from 'react';
+// import { FaStar } from "react-icons/fa";
 
 
 const ViewCard = () => {
@@ -107,7 +108,7 @@ const ViewCard = () => {
       >
         <FaArrowLeft className="w-[25px] h-[25px]" />
       </div>
-    
+
 
       <div className='w-[95%] md:mt-8 flex items-start justify-start text-[25px] md:w-[80%] mb-[10px] '>
         <h1 className='text-[20px] text-[#272727] md:text-[30px] 
@@ -279,11 +280,10 @@ const ViewCard = () => {
 
       {/* ############################################################################## */}
 
-      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[30px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px'>
+      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[50px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px'>
         <RxCross2 className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => setBookingPopUp(false)} />
-        <div className=''>
-          hello
-        </div>
+
+
         <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd] '>
           <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3] '>Confirm & Book</h1>
 
@@ -329,6 +329,38 @@ const ViewCard = () => {
 
         </form>
 
+        {/* ############################################################################## */}
+
+        <div className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd]'>
+
+          <div className='w-[95%] h-[30%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-center items-center gap-[10px] p-[20px] overflow-hidden '>
+
+            <div className='w-[70px] h-[90px] flex items-center justify-center flex-shrink-0 rounded-lg md:w-[100px] md:h-[100px] '><img className='w-[100%] h-[100%] rounded-lg ' src={cardDetails.image1} alt="" /></div>
+
+            <div className='w-[100%] h-[100px] gap-[5px] '>
+              <h1 className='w-[90%] truncate '>
+                {`IN ${cardDetails.landmark.toUpperCase()}, ${cardDetails.city.toUpperCase()}`}
+              </h1>
+
+              <h1>{cardDetails.title.toUpperCase()}</h1>
+              <h1>{cardDetails.category.toUpperCase()}</h1>
+              <h1 className='flex items-center justify-start gap-[5px]  '>
+                <FaStar className='text-[#eb6262] ' />
+                {cardDetails.ratings}
+              </h1>
+            </div>
+
+          </div>
+
+          <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-center items-start p-[20px] gap-[15px] flex-col '></div>
+
+          
+
+
+
+
+
+        </div>
 
 
 
