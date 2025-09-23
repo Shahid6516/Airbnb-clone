@@ -107,6 +107,7 @@ const ViewCard = () => {
       >
         <FaArrowLeft className="w-[25px] h-[25px]" />
       </div>
+    
 
       <div className='w-[95%] md:mt-8 flex items-start justify-start text-[25px] md:w-[80%] mb-[10px] '>
         <h1 className='text-[20px] text-[#272727] md:text-[30px] 
