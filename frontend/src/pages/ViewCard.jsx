@@ -7,6 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import axios from 'axios';
 import { authDataContext } from '../Context/AuthContext';
 import { useEffect } from 'react';
+import { bookingDataContext } from '../Context/BookingContext';
 // import { FaStar } from "react-icons/fa";
 
 
@@ -32,6 +33,33 @@ const ViewCard = () => {
   const { updating, setUpdating } = useContext(ListingDataContext)
   const { deleting, setDeleting } = useContext(ListingDataContext)
   const [minDate, setMinDate] = useState("")
+  const { checkIn, setCheckIn,
+    CheckOut, setCheckOut,
+    total, setTotal,
+    night, setNight } = useContext(bookingDataContext)
+
+
+  useEffect(() => {
+    if (checkIn && CheckOut) {
+      const inDate = new Date(checkIn)
+      const outDate = new Date(CheckOut)
+      var n = (outDate - inDate) / 24 * 60 * 60 * 1000
+      setNight(n)
+    }
+
+    const airBnbCharge = (cardDetails.rent * (7 / 100))
+    const tax = (cardDetails.rent * (7 / 100))
+
+    if (n > 0) {
+      setTotal((cardDetails.rent * n) + airBnbCharge + tax)
+    }
+    else {
+      setTotal(0)
+    }
+
+
+  }, [checkIn, CheckOut, cardDetails, rent, total])
+
 
   const handleUpdateListing = async () => {
     setUpdating(true)
@@ -300,7 +328,7 @@ const ViewCard = () => {
                   id="checkIn"
                   min={minDate}
                   required
-                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckIn(e.target.value)} value={checkIn}
                 />
               </div>
 
@@ -315,7 +343,7 @@ const ViewCard = () => {
                   min={minDate}
 
                   required
-                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckOut(e.target.value)} value={setCheckOut}
                 />
               </div>
 
@@ -352,9 +380,16 @@ const ViewCard = () => {
 
           </div>
 
-          <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-center items-start p-[20px] gap-[15px] flex-col '></div>
+          <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-start items-start p-[20px] gap-[15px] flex-col '>
 
-          
+            <h1 className='text-[22px] font-semibold '>Booking Price -</h1>
+            <p className='w-[100%] flex justify-between items-center px-[20px] '>
+              <span className='font-semibold '>{`₹ ${cardDetails.rent} X ${night} nights` }</span>
+              <span></span>
+            </p>
+          </div>
+
+
 
 
 
