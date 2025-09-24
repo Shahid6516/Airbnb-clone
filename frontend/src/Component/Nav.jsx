@@ -130,8 +130,11 @@ const Nav = () => {
                 }}>
                   My Listing
                 </li>
-                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer">
-                  Check Booking
+                <li className="w-[100%] px-[15px] py-[10px] hover:bg-[#e7e7e7] cursor-pointer" onClick={() => {
+                  navigate("/mybooking");
+                  setshowpopup(false);
+                }}>
+                  My Booking
                 </li>
               </ul>
             </div>

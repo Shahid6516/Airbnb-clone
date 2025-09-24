@@ -34,15 +34,15 @@ const ViewCard = () => {
   const { deleting, setDeleting } = useContext(ListingDataContext)
   const [minDate, setMinDate] = useState("")
   const { checkIn, setCheckIn,
-    CheckOut, setCheckOut,
+    checkOut, setCheckOut,
     total, setTotal,
-    night, setNight,handleBooking } = useContext(bookingDataContext)
+    night, setNight, handleBooking } = useContext(bookingDataContext)
 
 
   useEffect(() => {
-    if (checkIn && CheckOut) {
+    if (checkIn && checkOut) {
       const inDate = new Date(checkIn)
-      const outDate = new Date(CheckOut)
+      const outDate = new Date(checkOut)
       var n = (outDate - inDate) / (24 * 60 * 60 * 1000)
 
       setNight(n)
@@ -59,7 +59,7 @@ const ViewCard = () => {
     }
 
 
-  }, [checkIn, CheckOut, cardDetails, rent, total])
+  }, [checkIn, checkOut, cardDetails, rent, total])
 
 
   const handleUpdateListing = async () => {
@@ -309,114 +309,109 @@ const ViewCard = () => {
 
       {/* ############################################################################## */}
 
-      {bookingPopUp && <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[50px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px'>
-        <RxCross2 className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => setBookingPopUp(false)} />
+      {bookingPopUp && (
+        <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[50px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px]'>
+          <RxCross2
+            className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center'
+            onClick={() => setBookingPopUp(false)}
+          />
 
+          <form
+            className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start flex-col gap-[10px] border-[1px] border-[#dedddd]'
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleBooking(cardDetails._id);
+            }}
+          >
+            <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3]'>
+              Confirm & Book
+            </h1>
 
-        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd] ' onClick={(e)=>e.preventDefault()}>
-          <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3] '>Confirm & Book</h1>
+            <div className='w-[100%] h-[70%] mt-[10px] rounded-lg p-[10px]'>
+              <h3 className='text-[19px] font-semibold'>Your Trip -</h3>
 
-          <div className='w-[100%] h-[70%] mt-[10px] rounded-lg p-[10px] '>
-            <h3 className='text-[19px] font-semibold '>Your Trip -</h3>
+              <div className='flex items-center flex-col gap-[20px] mt-[20px]'>
+                {/* Check-in */}
+                <div className='w-[80%] flex flex-col md:flex-row gap-[10px] items-center justify-between'>
+                  <label htmlFor="checkIn" className="text-[20px] text-nowrap">Check-in</label>
+                  <input
+                    type="date"
+                    id="checkIn"
+                    min={minDate}
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    required
+                    className="w-[90%] h-[40px] border border-[#555656] rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                  />
+                </div>
 
-            <div className='flex items-center flex-col'>
-              <div className="w-[80%] flex items-center justify-center md:items-center md:justify-center mt-[20px] gap-[30px] flex-col md:flex-row ">
-                <label htmlFor="checkin" className="text-[20px]">
-                  Checkin
-                </label>
-                <input
-                  type="date"
-                  id="checkIn"
-                  min={minDate}
-                  required
-                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckIn(e.target.value)} value={checkIn}
-                />
+                {/* Check-out */}
+                <div className='w-[80%] flex flex-col md:flex-row gap-[10px] items-center justify-between'>
+                  <label htmlFor="checkOut" className="text-[20px] text-nowrap">Check-out</label>
+                  <input
+                    type="date"
+                    id="checkOut"
+                    min={checkIn || minDate}
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    required
+                    className="w-[90%] h-[40px] border border-[#555656] rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg text-[18px] text-nowrap"
+                >
+                  Book Now
+                </button>
               </div>
+            </div>
+          </form>
 
-
-              <div className="w-[80%] flex items-center justify-center md:items-center md:justify-center mt-[20px] gap-[20px] flex-col md:flex-row ">
-                <label htmlFor="checkin" className="text-[20px]">
-                  Checkout
-                </label>
-                <input
-                  type="date"
-                  id="checkIn"
-                  min={minDate}
-
-                  required
-                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckOut(e.target.value)} value={CheckOut}
-                />
+          {/* Booking summary */}
+          <div className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex flex-col gap-[10px] border-[1px] border-[#dedddd]'>
+            <div className='w-[95%] h-[30%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-center items-center gap-[10px] p-[20px] overflow-hidden'>
+              <div className='w-[70px] h-[90px] md:w-[100px] md:h-[100px] flex items-center justify-center rounded-lg'>
+                <img className='w-[100%] h-[100%] rounded-lg' src={cardDetails.image1} alt="" />
               </div>
-
-
-              <button className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[18px] text-nowrap" onClick={()=>handleBooking(cardDetails._id )}>
-                Book Now
-              </button>
+              <div className='w-[100%] h-[100px] gap-[5px]'>
+                <h1 className='w-[90%] truncate'>{`IN ${cardDetails.landmark.toUpperCase()}, ${cardDetails.city.toUpperCase()}`}</h1>
+                <h1>{cardDetails.title.toUpperCase()}</h1>
+                <h1>{cardDetails.category.toUpperCase()}</h1>
+                <h1 className='flex items-center gap-[5px]'>
+                  <FaStar className='text-[#eb6262]' /> {cardDetails.ratings}
+                </h1>
+              </div>
             </div>
 
-          </div>
+            <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex flex-col justify-start p-[20px] gap-[10px]'>
+              <h1 className='text-[22px] font-semibold'>Booking Price -</h1>
 
-        </form>
+              <p className='flex justify-between px-[20px]'>
+                <span className='font-semibold'>{`₹ ${cardDetails.rent} X ${night} nights`}</span>
+                <span>{cardDetails.rent * night}</span>
+              </p>
 
-        {/* ############################################################################## */}
+              <p className='flex justify-between px-[20px]'>
+                <span className='font-semibold'>Tax</span>
+                <span>{Math.floor(cardDetails.rent * night * 0.07)}</span>
+              </p>
 
-        <div className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd]'>
+              <p className='flex justify-between px-[20px] border-b-[1px] border-gray-500 pb-[10px]'>
+                <span className='font-semibold'>Airbnb Charge</span>
+                <span>{Math.floor(cardDetails.rent * night * 0.07)}</span>
+              </p>
 
-          <div className='w-[95%] h-[30%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-center items-center gap-[10px] p-[20px] overflow-hidden '>
-
-            <div className='w-[70px] h-[90px] flex items-center justify-center flex-shrink-0 rounded-lg md:w-[100px] md:h-[100px] '><img className='w-[100%] h-[100%] rounded-lg ' src={cardDetails.image1} alt="" /></div>
-
-            <div className='w-[100%] h-[100px] gap-[5px] '>
-              <h1 className='w-[90%] truncate '>
-                {`IN ${cardDetails.landmark.toUpperCase()}, ${cardDetails.city.toUpperCase()}`}
-              </h1>
-
-              <h1>{cardDetails.title.toUpperCase()}</h1>
-              <h1>{cardDetails.category.toUpperCase()}</h1>
-              <h1 className='flex items-center justify-start gap-[5px]  '>
-                <FaStar className='text-[#eb6262] ' />
-                {cardDetails.ratings}
-              </h1>
+              <p className='flex justify-between px-[20px]'>
+                <span className='font-semibold'>Total Price</span>
+                <span>{total}</span>
+              </p>
             </div>
-
           </div>
-
-          <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex justify-start items-start p-[20px] gap-[15px] flex-col '>
-
-            <h1 className='text-[22px] font-semibold '>Booking Price -</h1>
-            <p className='w-[100%] flex justify-between items-center px-[20px] '>
-              <span className='font-semibold '>{`₹ ${cardDetails.rent} X ${night} nights`}</span>
-              <span>{cardDetails.rent * night} </span>
-            </p>
-
-            <p className='w-[100%] flex justify-between items-center px-[20px] '>
-              <span className='font-semibold '>Tax</span>
-              <span>{cardDetails.rent * 7 / 100} </span>
-            </p>
-
-            <p className='w-[100%] flex justify-between items-center px-[20px] border-b-[1px] border-gray-500 pb-[10px] '>
-              <span className='font-semibold '>Airbnb Charge</span>
-              <span className=''>{cardDetails.rent * 7 / 100} </span>
-            </p>
-
-            <p className='w-[100%] flex justify-between items-center px-[20px] '>
-              <span className='font-semibold '>Total Price </span>
-              <span >{total}</span>
-            </p>
-          </div>
-
-
-
-
-
         </div>
+      )}
 
-
-
-
-
-
-      </div>}
 
 
 

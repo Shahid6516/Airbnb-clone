@@ -26,6 +26,8 @@ const BookingContext = ({ children }) => {
             await getListing()
             setBookingData(result.data)
             console.log(result.data)
+            setCheckIn("");
+            setCheckOut("");
 
         } catch (error) {
             console.log(error)
