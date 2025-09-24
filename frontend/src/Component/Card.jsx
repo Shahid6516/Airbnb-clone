@@ -19,9 +19,9 @@ const Card = ({ title, landmark, image1, image2, image3, rent, city, id, ratings
     }
   }
   return (
-    <div className='w-[330px] mt-58 md:mt-0 max-w-[85%] h-[460px] flex items-start justify-center flex-col rounded-lg cursor-pointer relative ' onClick={handleClick}>
+    <div className='w-[330px] mt-58 md:mt-0 max-w-[85%] h-[460px] flex items-start justify-center flex-col rounded-lg cursor-pointer relative z-[10]' onClick={() => !isBooked ? handleClick() : null}>
       {/* <div className='relative'> */}
-   {     <div className='text-[green] bg-white rounded-lg absolute flex items-center justify-center right-1 top-1 gap-[5px] p-[5px] '><GiConfirmed className='w-[20px] h-[20px] text-[green]' />Booked</div>}
+      {isBooked && <div className='text-[green] bg-white rounded-lg absolute flex items-center justify-center right-1 top-1 gap-[5px] p-[5px] '><GiConfirmed className='w-[20px] h-[20px] text-[green]' />Booked</div>}
       {/* </div> */}
 
       <div className='w-[100%] h-[67%] bg-[#2e2d2d] rounded-lg overflow-auto flex '>

@@ -22,10 +22,10 @@ const BookingContext = ({ children }) => {
                 checkIn, checkOut, totalRent: total
             }, { withCredentials: true })
 
-            await getCurrentUser
+            await getCurrentUser()
             await getListing()
             setBookingData(result.data)
-            console.log(result.data)
+            // console.log(result.data)
             setCheckIn("");
             setCheckOut("");
 
@@ -38,6 +38,19 @@ const BookingContext = ({ children }) => {
 
 
 
+    const cancelBooking = async (id) => {
+       try {
+         const result = await axios.delete(serverUrl + `/api/booking/cancel/${id}`, { withCredentials: true })
+         await getCurrentUser()
+         await getListing()
+         console.log(result.data)
+       } catch (error) {
+        console.log(error)
+       }
+
+
+
+    }
 
     const value = {
         checkIn, setCheckIn,
@@ -45,7 +58,7 @@ const BookingContext = ({ children }) => {
         total, setTotal,
         night, setNight,
         bookingData, setBookingData,
-        handleBooking
+        handleBooking,cancelBooking
 
 
     }

@@ -60,7 +60,7 @@ const Nav = () => {
 
 
   return (
-    <div className="fixed top-0 bg-white">
+    <div className="fixed top-0 bg-white z-[20]">
       <div className="w-[100vw] min-h-[70px]  border-b-[1px] border-[#dcdcdc] px-[20px] flex items-center justify-between md:px-[40px] ">
         <div>
           <img src={logo} className="w-[130px]" />
