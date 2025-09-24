@@ -36,14 +36,15 @@ const ViewCard = () => {
   const { checkIn, setCheckIn,
     CheckOut, setCheckOut,
     total, setTotal,
-    night, setNight } = useContext(bookingDataContext)
+    night, setNight,handleBooking } = useContext(bookingDataContext)
 
 
   useEffect(() => {
     if (checkIn && CheckOut) {
       const inDate = new Date(checkIn)
       const outDate = new Date(CheckOut)
-      var n = (outDate - inDate) / 24 * 60 * 60 * 1000
+      var n = (outDate - inDate) / (24 * 60 * 60 * 1000)
+
       setNight(n)
     }
 
@@ -312,7 +313,7 @@ const ViewCard = () => {
         <RxCross2 className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={() => setBookingPopUp(false)} />
 
 
-        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd] '>
+        <form action="" className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start  flex-col gap-[10px] border-[1px] border-[#dedddd] ' onClick={(e)=>e.preventDefault()}>
           <h1 className='w-[100%] flex items-center justify-center py-[10px] text-[25px] border-b-1 border-[#a3a3a3] '>Confirm & Book</h1>
 
           <div className='w-[100%] h-[70%] mt-[10px] rounded-lg p-[10px] '>
@@ -343,13 +344,13 @@ const ViewCard = () => {
                   min={minDate}
 
                   required
-                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckOut(e.target.value)} value={setCheckOut}
+                  className="w-[90%] h-[40px] border border-[#555656]  rounded-lg px-[10px] bg-transparent md:text-[18px] text-[15px]" onChange={(e) => setCheckOut(e.target.value)} value={CheckOut}
                 />
               </div>
 
 
-              <button className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[18px] text-nowrap" >
-                Book
+              <button className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] text-[18px] text-nowrap" onClick={()=>handleBooking(cardDetails._id )}>
+                Book Now
               </button>
             </div>
 
@@ -384,12 +385,25 @@ const ViewCard = () => {
 
             <h1 className='text-[22px] font-semibold '>Booking Price -</h1>
             <p className='w-[100%] flex justify-between items-center px-[20px] '>
-              <span className='font-semibold '>{`₹ ${cardDetails.rent} X ${night} nights` }</span>
-              <span></span>
+              <span className='font-semibold '>{`₹ ${cardDetails.rent} X ${night} nights`}</span>
+              <span>{cardDetails.rent * night} </span>
+            </p>
+
+            <p className='w-[100%] flex justify-between items-center px-[20px] '>
+              <span className='font-semibold '>Tax</span>
+              <span>{cardDetails.rent * 7 / 100} </span>
+            </p>
+
+            <p className='w-[100%] flex justify-between items-center px-[20px] border-b-[1px] border-gray-500 pb-[10px] '>
+              <span className='font-semibold '>Airbnb Charge</span>
+              <span className=''>{cardDetails.rent * 7 / 100} </span>
+            </p>
+
+            <p className='w-[100%] flex justify-between items-center px-[20px] '>
+              <span className='font-semibold '>Total Price </span>
+              <span >{total}</span>
             </p>
           </div>
-
-
 
 
 

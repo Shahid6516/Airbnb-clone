@@ -29,7 +29,8 @@ const UserContext = ({ children }) => {
 
   const value = {
     userData,
-    setUserData
+    setUserData,
+    getCurrentUser
   }
 
   return (
