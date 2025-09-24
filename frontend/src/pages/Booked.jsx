@@ -1,12 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { GiConfirmed } from "react-icons/gi";
 import { bookingDataContext } from '../Context/BookingContext';
 import { FaStar } from "react-icons/fa";
-
+import { useNavigate } from 'react-router-dom';
+import Star from '../Component/Star';
 
 
 const Booked = () => {
     const { bookingData } = useContext(bookingDataContext)
+    const [star, setStar] = useState(null)
+    const navigate = useNavigate()
+
+
+    const handleStar = async (value) => {
+        setStar(value)
+        console.log("You Rated : ", value)
+    }
+
     return (
         <div className='w-[100vw] min-h-[110vh] flex items-center justify-center gap-[20px] bg-slate-200 flex-col '>
 
@@ -28,10 +38,17 @@ const Booked = () => {
             </div>
 
             <div className='w-[95%] max-w-[550px] h-[200px] bg-white flex items-center justify-center border-[1px]  border-[#b5b5b5] flex-col gap-[20px] p-[20px] md:w-[80%] rounded-lg'>
-                <h1> 0 out of 5 Rating</h1>
-                <FaStar />
+                <h1 className='text-[18px]  '> {star} out of 5 Rating</h1>
+                <Star onRate={handleStar} />
+                <FaStar onRate={handleStar} />
+                <button className="px-[50px]  py-[10px] bg-red-600  right-[5%] bottom-[9%] text-white rounded-lg md:px-[50px]" >
+                    Submit
+                </button>
             </div>
 
+            <button className="px-[50px]  py-[10px] bg-red-600 text-white rounded-lg   md:px-[100px] text-nowrap absolute top-[10px] right-[20px] " onClick={() => navigate("/")}>
+                Back to Home
+            </button>
 
         </div>
     )
