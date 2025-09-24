@@ -33,10 +33,11 @@ const ViewCard = () => {
   const { updating, setUpdating } = useContext(ListingDataContext)
   const { deleting, setDeleting } = useContext(ListingDataContext)
   const [minDate, setMinDate] = useState("")
+
   const { checkIn, setCheckIn,
     checkOut, setCheckOut,
     total, setTotal,
-    night, setNight, handleBooking } = useContext(bookingDataContext)
+    night, setNight, handleBooking, booking } = useContext(bookingDataContext)
 
 
   useEffect(() => {
@@ -361,9 +362,9 @@ const ViewCard = () => {
 
                 <button
                   type="submit"
-                  className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg text-[18px] text-nowrap"
+                  className="mt-7 px-[100px] py-[10px] bg-red-600 text-white rounded-lg text-[18px] text-nowrap" disabled={booking}
                 >
-                  Book Now
+                  {booking ? "Booking..." : "Book Now"}
                 </button>
               </div>
             </div>
