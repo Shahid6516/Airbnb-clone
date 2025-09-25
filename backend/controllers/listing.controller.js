@@ -126,7 +126,6 @@ export const deleteListing = async (req, res) => {
     }
 
     return res.status(200).json({ message: "Listing Deleted" });
-
   } catch (error) {
     return res
       .status(500)
@@ -134,3 +133,18 @@ export const deleteListing = async (req, res) => {
   }
 };
 
+export const ratingListing = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { ratings } = req.body;
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+    listing.ratings = Number(ratings);
+    await listing.save();
+    return res.status(200).json({ ratings: listing.ratings });
+  } catch (error) {
+    return res.status(404).json({ message: `Rating Error :${error}` });
+  }
+};

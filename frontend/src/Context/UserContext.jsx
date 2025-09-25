@@ -1,22 +1,19 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import  { authDataContext } from "../Context/AuthContext";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
-  const { serverUrl} = useContext(authDataContext); // {}
+  const serverUrl = "http://localhost:3000"; // <-- your backend URL
   const [userData, setUserData] = useState(null);
 
   const getCurrentUser = async () => {
     try {
-      const result = await axios.get(serverUrl + "/api/user/currentuser", {
+      const result = await axios.get(`${serverUrl}/api/user/currentuser`, {
         withCredentials: true,
       });
-
-      setUserData(result.data.user); //
+      setUserData(result.data.user);
       console.log("Current user:", result.data.user);
-
     } catch (error) {
       setUserData(null);
       console.log(error);
@@ -27,14 +24,8 @@ const UserContext = ({ children }) => {
     getCurrentUser();
   }, []);
 
-  const value = {
-    userData,
-    setUserData,
-    getCurrentUser
-  }
-
   return (
-    <userDataContext.Provider value={{ userData, setUserData }}>
+    <userDataContext.Provider value={{ userData, setUserData, getCurrentUser, serverUrl }}>
       {children}
     </userDataContext.Provider>
   );
