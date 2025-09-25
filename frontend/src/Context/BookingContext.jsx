@@ -4,6 +4,7 @@ import { authDataContext } from './AuthContext'
 import { userDataContext } from './UserContext'
 import { ListingDataContext } from './ListingContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 export const bookingDataContext = createContext()
 
 const BookingContext = ({ children }) => {
@@ -31,6 +32,8 @@ const BookingContext = ({ children }) => {
             await getListing()
             setBookingData(result.data)
             setBooking(false)
+            toast.success("Booking Successfully")
+
             navigate("/booked")
 
             // console.log(result.data)
@@ -39,6 +42,8 @@ const BookingContext = ({ children }) => {
 
         } catch (error) {
             console.log(error)
+            toast.error(error.response.data.message)
+
             setBookingData(null)
             setBooking(false)
 
@@ -53,9 +58,12 @@ const BookingContext = ({ children }) => {
             const result = await axios.delete(serverUrl + `/api/booking/cancel/${id}`, { withCredentials: true })
             await getCurrentUser
             await getListing()
+            toast.success("Cancel Booking Successfully")
             console.log(result.data)
         } catch (error) {
             console.log(error)
+            toast.error(error.response.data.message)
+
         }
 
     }
@@ -67,7 +75,7 @@ const BookingContext = ({ children }) => {
         total, setTotal,
         night, setNight,
         bookingData, setBookingData,
-        handleBooking, cancelBooking,booking,setBooking
+        handleBooking, cancelBooking, booking, setBooking
 
 
     }

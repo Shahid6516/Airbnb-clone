@@ -7,6 +7,7 @@ import { authDataContext } from "../Context/AuthContext";
 
 import axios from "axios";
 import { userDataContext } from "../Context/UserContext";
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -29,11 +30,13 @@ const Login = () => {
       }, { withCredentials: true });
       setLoading(false)
       setUserData(result.data.user)
-
+toast.success("Login successfully")
       navigate("/")
       console.log(result);
     } catch (error) {
       setLoading(false)
+toast.error(error.response.data.message)
+
       console.log(error);
     }
   };

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { authDataContext } from './AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export const ListingDataContext = createContext()
 
@@ -55,10 +56,14 @@ const ListingContext = ({ children }) => {
             // Refresh listings after adding
             getListing()
             navigate("/")
+            toast.success("Added listing Successfully")
+
 
         } catch (error) {
             setAdding(false)
             console.log(error)
+            toast.error(error.response.data.message)
+
         }
     }
 
@@ -83,16 +88,7 @@ const ListingContext = ({ children }) => {
             setListingData(result.data)
             setNewListData(result.data)
 
-            // // Ensure listingData is always an array
-            // if (Array.isArray(result.data)) {
-            //     setListingData(result.data)
-            // } else if (result.data && Array.isArray(result.data.listings)) {
-            //     setListingData(result.data.listings)
-            // } else if (result.data && typeof result.data === "object") {
-            //     setListingData([result.data]) // wrap single object in array
-            // } else {
-            //     setListingData([])
-            // }
+
 
 
 
@@ -126,7 +122,7 @@ const ListingContext = ({ children }) => {
         newListData, setNewListData,
         handleViewCard,
         cardDetails, setCardDetails,
-        updating, setUpdating,setDeleting
+        updating, setUpdating, setDeleting
     }
 
     return (

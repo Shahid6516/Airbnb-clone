@@ -17,6 +17,7 @@ import axios from "axios"
 import logo from "../assets/logo.png";
 import { userDataContext } from "../Context/UserContext";
 import { ListingDataContext } from "../Context/ListingContext";
+import { toast } from "react-toastify";
 
 
 const Nav = () => {
@@ -35,12 +36,15 @@ const Nav = () => {
       setUserData(null)
       console.log("Fetched user:", result.data.user);
       console.log("Result for data:", result.data);
+      toast.success("user logout Successfully")
 
 
       console.log(result)
 
     } catch (error) {
       console.log(error)
+      toast.error("Something went wrong")
+
     }
   }
 
@@ -89,7 +93,7 @@ const Nav = () => {
 
             {userData ? (
               <span className="w-8 h-8 bg-[#080808] text-white rounded-full flex items-center justify-center font-bold">
-                {userData.name.charAt(0).toUpperCase()}
+                {userData.name?.charAt(0).toUpperCase()}
               </span>
             ) : (
               <CgProfile className="w-5 h-5 text-gray-600" />

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { authDataContext } from '../Context/AuthContext';
 import { useEffect } from 'react';
 import { bookingDataContext } from '../Context/BookingContext';
+import { toast } from 'react-toastify';
 // import { FaStar } from "react-icons/fa";
 
 
@@ -88,10 +89,13 @@ const ViewCard = () => {
 
       // Refresh listings after adding
       getListing()
+      toast.success("Listing updated")
+
       navigate("/")
 
     } catch (error) {
       setUpdating(false)
+      toast.error(error.response.data.message)
 
       console.log(error)
     }
@@ -102,10 +106,14 @@ const ViewCard = () => {
     try {
       const result = await axios.delete(serverUrl + `/api/listing/delete/${cardDetails._id}`, { withCredentials: true })
       setDeleting(false)
+      toast.success("Listing Deleted")
+
       navigate("/")
       console.log(result.data)
     } catch (error) {
       console.log(error)
+      toast.error(error.response.data.message)
+
       setDeleting(false)
 
     }

@@ -6,6 +6,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import axios from "axios";
 import { authDataContext } from "../Context/AuthContext";
 import { userDataContext } from "../Context/UserContext";
+import { toast } from 'react-toastify';
 
 const Signup = () => {
     const [show, setshow] = useState("false");
@@ -31,11 +32,16 @@ const Signup = () => {
             }, { withCredentials: true });
             setLoading(false)
 
-            setUserData(result.data)
+            setUserData(result.data.user)
             navigate("/")
+            toast.success("Signup Successfully")
             console.log(result);
         } catch (error) {
-            setLoading(true)
+            setLoading(false)
+            toast.error(error.response.data.message)
+
+
+
             console.log(error);
         }
     };
@@ -112,7 +118,7 @@ const Signup = () => {
                     )}
                 </div>
                 <button className="px-[50px] py-[10px] bg-red-600 text-white rounded-lg md:px-[100px] mt-[12px]" disabled={loading}>
-                    {loading ? "loading..." : "Signup"}
+                    {loading ? "Loading..." : "Signup"}
                 </button>
                 <p className="text-[18px]">
                     Already have an account ?{" "}
