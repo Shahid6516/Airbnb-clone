@@ -53,7 +53,7 @@ const Nav = () => {
   }
 
 
-   const handleClick = (id) => {
+  const handleClick = (id) => {
     if (userData) {
       handleViewCard(id)
     }
@@ -169,7 +169,7 @@ const Nav = () => {
           <div className="max-w-[700px] w-[100vw] h-[300px] overflow-hidden flex flex-col bg-[#fefdfd] p-[20px] rounded-lg border-[1px] border-[#a2a1a1] cursor-pointer ">
             {
               searchData.map((search) => (
-                <div className="border-b border-[black] p-[10px] " onClick={()=>handleClick(search._id)}>
+                <div className="border-b border-[black] p-[10px] " onClick={() => handleClick(search._id)}>
                   {search.title} in {search.landmark},{search.city}
                 </div>
 
