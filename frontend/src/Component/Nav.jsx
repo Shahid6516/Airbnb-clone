@@ -26,7 +26,7 @@ const Nav = () => {
   const { userData, setUserData } = useContext(userDataContext)
   const { serverUrl } = useContext(authDataContext)
   const [cate, setCate] = useState("")
-  const { listingData, setListingData, setNewListData, newListData, searchData, handleSearch } = useContext(ListingDataContext)
+  const { listingData, setListingData, setNewListData, newListData, searchData, handleSearch, handleViewCard } = useContext(ListingDataContext)
 
   const [input, setInput] = useState("")
 
@@ -48,6 +48,17 @@ const Nav = () => {
     } catch (error) {
       console.log(error)
       toast.error("Something went wrong")
+
+    }
+  }
+
+
+   const handleClick = (id) => {
+    if (userData) {
+      handleViewCard(id)
+    }
+    else {
+      navigate("/login")
 
     }
   }
@@ -158,7 +169,7 @@ const Nav = () => {
           <div className="max-w-[700px] w-[100vw] h-[300px] overflow-hidden flex flex-col bg-[#fefdfd] p-[20px] rounded-lg border-[1px] border-[#a2a1a1] cursor-pointer ">
             {
               searchData.map((search) => (
-                <div className="border-b border-[black] p-[10px] ">
+                <div className="border-b border-[black] p-[10px] " onClick={()=>handleClick(search._id)}>
                   {search.title} in {search.landmark},{search.city}
                 </div>
 
