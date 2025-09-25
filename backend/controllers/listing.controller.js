@@ -148,3 +148,23 @@ export const ratingListing = async (req, res) => {
     return res.status(404).json({ message: `Rating Error :${error}` });
   }
 };
+
+export const search = async (req, res) => {
+  try {
+    const { query } = search.query;
+    if (!query) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+    const listing = await Listing.find({
+      $or: [
+        { landmark: { $regex: query, $options: "i" } },
+        { city: { $regex: query, $options: "i" } },
+        { title: { $regex: query, $options: "i" } },
+      ],
+    });
+    return res.status(200).json(listing);
+  } catch (error) {
+    console.error("Search Error:", error);
+    return res.status(500).json({message:`Internal server error: ${error}`})
+  }
+};
