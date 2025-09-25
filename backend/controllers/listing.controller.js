@@ -151,7 +151,7 @@ export const ratingListing = async (req, res) => {
 
 export const search = async (req, res) => {
   try {
-    const { query } = search.query;
+    const { query } = req.query;
     if (!query) {
       return res.status(400).json({ message: "Search query is required" });
     }

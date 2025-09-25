@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgProfile } from "react-icons/cg";
@@ -26,7 +26,11 @@ const Nav = () => {
   const { userData, setUserData } = useContext(userDataContext)
   const { serverUrl } = useContext(authDataContext)
   const [cate, setCate] = useState("")
-  const { listingData, setListingData, setNewListData } = useContext(ListingDataContext)
+  const { listingData, setListingData, setNewListData, newListData, searchData, handleSearch } = useContext(ListingDataContext)
+
+  const [input, setInput] = useState("")
+
+
 
   const handleLogout = async () => {
     try {
@@ -62,6 +66,11 @@ const Nav = () => {
 
   }
 
+  useEffect(() => {
+    handleSearch(input)
+  }, [input])
+
+
 
   return (
     <div className="fixed top-0 bg-white z-[20]">
@@ -73,7 +82,7 @@ const Nav = () => {
           <input
             type="text"
             className="w-[100%] px-[30px] py-[10px] border-[2px] border-[#dcdcdc] outline-none overflow-auto rounded-3xl"
-            placeholder="Any Where | Any Location | Any city "
+            placeholder="Any Where | Any Location | Any city " onChange={(e) => setInput(e.target.value)} value={input}
           />
           <button className="absolute p-[8px] bg-[#ff5a5f] rounded-full right-[3%] top-[5px]">
             <FaSearch className="w-[20px] h-[20px] text-white" />
@@ -144,6 +153,20 @@ const Nav = () => {
             </div>
           )}
         </div>
+
+        {searchData?.length > 0 && <div className="w-[100vw] h-[450px] flex flex-col gap-[20px] absolute top-[50%] overflow-auto left-[0] justify-start items-center">
+          <div className="max-w-[700px] w-[100vw] h-[300px] overflow-hidden flex flex-col bg-[#fefdfd] p-[20px] rounded-lg border-[1px] border-[#a2a1a1] cursor-pointer ">
+            {
+              searchData.map((search) => (
+                <div className="border-b border-[black] p-[10px] ">
+                  {search.title} in {search.landmark},{search.city}
+                </div>
+
+              ))
+            }
+          </div>
+        </div>}
+
       </div>
 
       <div className="w-[100%] mt-1.5 flex items-center justify-center">
@@ -151,7 +174,7 @@ const Nav = () => {
           <input
             type="text"
             className="w-[100%] px-[30px] py-[10px] border-[2px] border-[#dcdcdc] outline-none overflow-auto rounded-3xl"
-            placeholder="Any Where | Any Location | Any city "
+            placeholder="Any Where | Any Location | Any city " onChange={(e) => setInput(e.target.value)} value={input}
           />
           <button className="absolute p-[8px] bg-[#ff5a5f] rounded-full right-[3%] top-[5px]">
             <FaSearch className="w-[20px] h-[20px] text-white" />

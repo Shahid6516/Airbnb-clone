@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { authDataContext } from './AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { data, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export const ListingDataContext = createContext()
@@ -25,8 +25,10 @@ const ListingContext = ({ children }) => {
     const [listingData, setListingData] = useState([])
     const [newListData, setNewListData] = useState([])
     const [cardDetails, setCardDetails] = useState(null)
+    const [searchData, setSearchData] = useState([])
 
     const { serverUrl } = useContext(authDataContext)
+
     const navigate = useNavigate()
 
     // Add listing
@@ -80,6 +82,16 @@ const ListingContext = ({ children }) => {
 
     }
 
+    const handleSearch = async (data) => {
+        try {
+            const result = await axios.get(serverUrl + `/api/listing/search?query=${data}`)
+            setSearchData(result.data)
+        } catch (error) {
+            setSearchData(null)
+            console.log(error)
+        }
+    }
+
     // Get all listings
     const getListing = async () => {
         try {
@@ -122,7 +134,8 @@ const ListingContext = ({ children }) => {
         newListData, setNewListData,
         handleViewCard,
         cardDetails, setCardDetails,
-        updating, setUpdating, setDeleting
+        updating, setUpdating, setDeleting, handleSearch,
+        searchData, setSearchData
     }
 
     return (
