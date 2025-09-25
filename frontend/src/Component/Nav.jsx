@@ -227,13 +227,13 @@ const Nav = () => {
           <h3>PG</h3>
         </div>
 
-        <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate == "cabins" ? "border-b-[1px] border-[#a6a5a5]" : ""}`} onClick={() => handleCategory("cabins")}>
+        <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate == "cabins" ? "border-b-[1px] border-[#a6a5a5]" : ""}`} onClick={() => handleCategory("cabin")}>
           <GiWoodCabin className="w-[30px] h-[30px] " />
           <h3>Cabins</h3>
         </div>
 
 
-        <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate == "shops" ? "border-b-[1px] border-[#a6a5a5]" : ""}`} onClick={() => handleCategory("shops")} >
+        <div className={`flex items-center justify-center flex-col hover:border-b-[1px] border-[#a6a5a5] text-[13px] ${cate == "shops" ? "border-b-[1px] border-[#a6a5a5]" : ""}`} onClick={() => handleCategory("shop")} >
           <SiHomeassistantcommunitystore className="w-[30px] h-[30px] " />
           <h3>Shops</h3>
         </div>
