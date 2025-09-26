@@ -31,49 +31,109 @@ const ListingContext = ({ children }) => {
   const navigate = useNavigate();
 
   // Add listing
+  // const handleAddListing = async () => {
+  //   setAdding(true);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("title", title);
+  //     formData.append("image1", backEndImage1);
+  //     formData.append("image2", backEndImage2);
+  //     formData.append("image3", backEndImage3);
+  //     formData.append("description", description);
+  //     formData.append("rent", rent);
+  //     formData.append("city", city);
+  //     formData.append("landmark", landmark);
+  //     formData.append("category", category);
+
+  //     await axios.post(serverUrl + "/api/listing/add", formData, {
+  //       withCredentials: true,
+  //     });
+
+  //     // Reset form
+  //     setTitle("");
+  //     setDescription("");
+  //     setFrontendImage1(null);
+  //     setFrontendImage2(null);
+  //     setFrontendImage3(null);
+  //     setBackendImage1(null);
+  //     setBackendImage2(null);
+  //     setBackEndImage3(null);
+  //     setRent("");
+  //     setCity("");
+  //     setLandMark("");
+  //     setCategory("");
+  //     setAdding(false);
+
+  //     // Refresh listings
+  //     await getListing();
+  //     navigate("/");
+  //     toast.success("Added listing Successfully");
+  //   } catch (error) {
+  //     setAdding(false);
+  //     console.log(error);
+  //     toast.error(error?.response?.data?.message || "Something went wrong");
+  //   }
+  // };
+
   const handleAddListing = async () => {
-    setAdding(true);
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("image1", backEndImage1);
-      formData.append("image2", backEndImage2);
-      formData.append("image3", backEndImage3);
-      formData.append("description", description);
-      formData.append("rent", rent);
-      formData.append("city", city);
-      formData.append("landmark", landmark);
-      formData.append("category", category);
+  setAdding(true);
 
-      await axios.post(serverUrl + "/api/listing/add", formData, {
-        withCredentials: true,
-      });
+  try {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("rent", rent);
+    formData.append("city", city);
+    formData.append("landmark", landmark);
+    formData.append("category", category);
 
-      // Reset form
-      setTitle("");
-      setDescription("");
-      setFrontendImage1(null);
-      setFrontendImage2(null);
-      setFrontendImage3(null);
-      setBackendImage1(null);
-      setBackendImage2(null);
-      setBackendImage3(null);
-      setRent("");
-      setCity("");
-      setLandMark("");
-      setCategory("");
-      setAdding(false);
+    // Append only valid File objects
+    if (backEndImage1 instanceof File) formData.append("image1", backEndImage1);
+    if (backEndImage2 instanceof File) formData.append("image2", backEndImage2);
+    if (backEndImage3 instanceof File) formData.append("image3", backEndImage3);
 
-      // Refresh listings
-      await getListing();
-      navigate("/");
-      toast.success("Added listing Successfully");
-    } catch (error) {
-      setAdding(false);
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Something went wrong");
+    // Debug: log FormData entries
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
     }
-  };
+
+    
+    await axios.post(serverUrl + "/api/listing/add", formData, {
+      withCredentials: true,
+    });
+
+    // Reset form fields
+    setTitle("");
+    setDescription("");
+    setFrontendImage1(null);
+    setFrontendImage2(null);
+    setFrontendImage3(null);
+    setBackendImage1(null);
+    setBackendImage2(null);
+    setBackEndImage3(null);
+    setRent("");
+    setCity("");
+    setLandMark("");
+    setCategory("");
+
+    // Refresh listings
+    await getListing();
+    navigate("/");
+    toast.success("Added listing successfully");
+  } catch (error) {
+    console.error("Add Listing Error:", error);
+    toast.error(error?.response?.data?.message || "Something went wrong");
+  } finally {
+    setAdding(false);
+  }
+};
+
+
+
+
+
+
+
 
   // View single card
   const handleViewCard = async (id) => {
@@ -98,7 +158,7 @@ const ListingContext = ({ children }) => {
       setSearchData(result.data);
     } catch (error) {
       setSearchData([]);
-      console.log(error);
+      // console.log(error);
     }
   };
 

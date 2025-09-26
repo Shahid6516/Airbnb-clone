@@ -22,7 +22,7 @@ const ListingPage3 = () => {
     adding,setAdding,
   } = useContext(ListingDataContext)
   return (
-    <div className='w-[100%] h-[140vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
+    <div className='w-[100%] md:h-[140vh] h-[100vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
       <div
         className="w-[50px]  h-[50px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center"
         onClick={() => navigate("/listingpage2")}
@@ -31,6 +31,7 @@ const ListingPage3 = () => {
       </div>
 
       <div className='w-[95%] md:mt-8 flex items-start justify-start text-[25px] md:w-[80%] mb-[10px] '>
+
         <h1 className='text-[20px] text-[#272727] md:text-[30px] text-ellipsis text-nowrap overflow-hidden px-[70px] md:px-[0px]'>{`IN ${landmark.toUpperCase()}, ${city.toUpperCase()}`}</h1>
       </div>
 

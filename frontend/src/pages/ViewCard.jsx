@@ -139,7 +139,7 @@ const ViewCard = () => {
   }, [])
 
   return (
-    <div className='w-[100%] h-[140vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
+    <div className='w-[100%] h-[100vh] md:h-[140vh] bg-white flex items-center justify-center gap-[10px] flex-col overflow-auto relative '>
       <div
         className="w-[50px]  h-[50px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center"
         onClick={() => navigate("/")}
@@ -321,12 +321,12 @@ const ViewCard = () => {
       {bookingPopUp && (
         <div className='w-[100%] h-[100%] flex items-center justify-center flex-col gap-[50px] bg-[#ffffffc0] absolute top-[0px] z-[100] backdrop-blur-sm md:flex-row md:gap-[100px]'>
           <RxCross2
-            className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center'
+            className='w-[30px]  h-[30px] text-white bg-red-600 cursor-pointer absolute md:top-[5%] top-[1%] left-[30px] md:left-[20px] rounded-[50%] flex items-center justify-center'
             onClick={() => setBookingPopUp(false)}
           />
 
           <form
-            className='max-w-[450px] w-[90%] h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start flex-col gap-[10px] border-[1px] border-[#dedddd]'
+            className='max-w-[450px] w-[90%] h-[540px] md:h-[450px] overflow-auto bg-[#f7fbfcfe] p-[20px] rounded-lg flex items-center justify-start flex-col gap-[10px] border-[1px] border-[#dedddd]'
             onSubmit={(e) => {
               e.preventDefault();
               handleBooking(cardDetails._id);
@@ -394,7 +394,7 @@ const ViewCard = () => {
               </div>
             </div>
 
-            <div className='w-[95%] h-[60%] border-[1px] border-[#9f9d9d] rounded-lg flex flex-col justify-start p-[20px] gap-[10px]'>
+            <div className='w-[95%] h-[65%] border-[1px] border-[#9f9d9d] rounded-lg flex flex-col justify-start p-[20px] gap-[10px]'>
               <h1 className='text-[22px] font-semibold'>Booking Price -</h1>
 
               <p className='flex justify-between px-[20px]'>

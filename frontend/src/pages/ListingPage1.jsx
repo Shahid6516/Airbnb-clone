@@ -13,7 +13,7 @@ const ListingPage1 = () => {
         frontendImage3, setFrontendImage3,
         backEndImage1, setBackendImage1,
         backEndImage2, setBackendImage2,
-        backEndImage3, setBackendImage3,
+        backEndImage3, setBackEndImage3,
         rent, setRent,
         city, setCity,
         landmark, setLandMark,
@@ -31,7 +31,7 @@ const ListingPage1 = () => {
     }
     const handleImage3 = (e) => {
         const file = e.target.files[0]
-        setBackendImage3(file)
+        setBackEndImage3(file)
         setFrontendImage3(URL.createObjectURL(file))
     }
 
@@ -41,7 +41,7 @@ const ListingPage1 = () => {
     }
 
     return (
-        <div className="w-[100%] h-[100vh] flex items-center justify-center bg-white relative ">
+        <div className="w-[100%] h-[80vh] flex items-center justify-center bg-white relative ">
             <form
                 action=""
                 className="max-w-[900px] w-full md:w-[90%]  h-[500px] flex items-center justify-start flex-col md:items-start gap-[10px] mt-[50px] overflow-auto"
