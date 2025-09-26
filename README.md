@@ -71,8 +71,8 @@ cd frontend
 npm run dev
 
 The app will be live at:
-👉 Frontend: http://localhost:3000
-👉 Backend: http://localhost:5000
+👉 Frontend: http://localhost:5173
+👉 Backend: http://localhost:3000
 
 📜 License
 
