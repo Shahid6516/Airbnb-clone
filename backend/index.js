@@ -26,7 +26,7 @@ app.use("/api/listing", listingRouter);
 app.use("/api/booking", bookingRouter);
 
 
-app.get("/api/hello", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "Hello from backend 🚀" });
 });
 
