@@ -30,17 +30,14 @@ const MyListing = () => {
   return (
     <div className="w-[100vw] min-h-[100vh] flex items-center justify-start flex-col gap-[50px] relative">
       {/* Back button */}
-<<<<<<< HEAD
       <div
         className="w-[50px] h-[50px] text-white bg-red-600 cursor-pointer absolute top-[10%] left-[20px] rounded-[50%] flex items-center justify-center"
         onClick={() => navigate("/")}
       >
         <FaArrowLeft className="w-[25px] h-[25px]" />
       </div>
-=======
      <div className="w-[50px] h-[50px] text-white bg-red-600 cursor-pointer absolute md:top-[10%] top-[3%] left-[20px] rounded-[50%] flex items-center justify-center" onClick={() => navigate("/")}><FaArrowLeft className="w-[25px] h-[25px]" />
                  </div>
->>>>>>> 5658170ac5b8523a6cabc47967f7014d38a20f7c
 
       {/* Title */}
       <div className="w-[50%] h-[10%] border-[2px] border-[#908c8c] p-[15px] flex items-center justify-center text-[20px] md:text-[30px] rounded-md text-[#613b3b] font-semibold md:w-[600px] mt-[50px] text-nowrap">
