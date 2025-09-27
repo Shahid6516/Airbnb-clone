@@ -17,7 +17,7 @@ app.use(
   cors({
     // origin: "http://localhost:5173",
     origin:
-      "https://airbnb-clone-glo5-p6oj1opjs-mohammad-shahids-projects-519afcf0.vercel.app",
+      "https://airbnb-clone-glo5.vercel.app",
     credentials: true,
   })
 );
