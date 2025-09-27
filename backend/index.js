@@ -25,6 +25,11 @@ app.use("/api/user", userRouter);
 app.use("/api/listing", listingRouter);
 app.use("/api/booking", bookingRouter);
 
+
+app.get("/api/hello", (req, res) => {
+  res.json({ message: "Hello from backend 🚀" });
+});
+
 app.listen(PORT, () => {
   connectDb();
   console.log("Your app is runing on Port:", PORT);
