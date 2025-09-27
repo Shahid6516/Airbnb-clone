@@ -4,7 +4,7 @@ import axios from "axios";
 export const userDataContext = createContext();
 
 const UserContext = ({ children }) => {
-  const serverUrl = "http://localhost:3000"; // <-- your backend URL
+  const serverUrl = "https://airbnb-clone-backend-rjub.onrender.com";
   const [userData, setUserData] = useState(null);
 
   const getCurrentUser = async () => {
