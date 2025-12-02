@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(
   cors({
    
-    origin:"https://airbnb-clone-frontend-35j8.onrender.com",
+    origin:"https://roomify-0.onrender.com",
   
     credentials: true,
   })
