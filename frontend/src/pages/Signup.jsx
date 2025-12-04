@@ -61,7 +61,7 @@ const Signup = () => {
                 onSubmit={handleSignUp}
             >
                 <h1 className="text-[45px] text-center md:text-start md:text-5xl text-black">
-                    Welcome to Airbnb
+                    Welcome to Roomify
                 </h1>
                 <div className="w-[90%] flex items-start justify-start flex-col gap-[10px] mt-[30px]">
                     <label htmlFor="" className="text-[20px]">
