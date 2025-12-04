@@ -54,7 +54,7 @@ toast.error(error.response.data.message)
         onSubmit={handleLogin}
       >
         <h1 className="text-[45px] text-center md:text-start md:text-5xl text-black">
-          Welcome to Airbnb
+          Welcome to Roomify
         </h1>
 
 
